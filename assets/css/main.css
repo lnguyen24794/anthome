@@ -750,6 +750,40 @@ footer {
 /* Ensure vertical menu wrapper is above slider */
 .vertical-menu-wrapper {
     z-index: 1001; /* Higher than header base */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* Show on front page by default */
+.vertical-menu-wrapper.show-on-front-page {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Hide on other pages by default */
+.vertical-menu-wrapper.show-on-hover {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+}
+
+/* Show on hover for non-front pages */
+.vertical-menu-header:hover + .vertical-menu-wrapper.show-on-hover,
+.vertical-menu-wrapper.show-on-hover:hover {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Container hover support */
+.header-nav .col-lg-3:hover .vertical-menu-wrapper.show-on-hover {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 /* Ensure submenu is even higher */

@@ -182,7 +182,7 @@
                     
                     <!-- Vertical Menu List (Absolute Overlay) -->
                     <!-- Show by default on Front Page, Hide on others (hover to show) -->
-                    <div class="vertical-menu-wrapper position-absolute w-100 bg-white" style="z-index: 999; top: 100%; left: 0; min-height: 400px; display: <?php echo is_front_page() ? 'block' : 'none'; ?>;">
+                    <div class="vertical-menu-wrapper position-absolute w-100 bg-white <?php echo is_front_page() ? 'show-on-front-page' : 'show-on-hover'; ?>" style="z-index: 999; top: 100%; left: 0; min-height: 400px;">
                          <?php get_template_part('template-parts/header/vertical-menu'); ?>
                     </div>
                 </div>
