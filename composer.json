@@ -1,0 +1,24 @@
+{
+    "name": "anthome/theme",
+    "description": "Custom WooCommerce Theme for Anthome",
+    "type": "wordpress-theme",
+    "authors": [
+        {
+            "name": "Anthome Team",
+            "email": "dev@anthome.vn"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Anthome\\": "inc/classes/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
+

@@ -1,0 +1,61 @@
+Yêu cầu kỹ thuật Theme WooCommerce Custom
+Tài liệu này quy định các tiêu chuẩn kỹ thuật để xây dựng một Custom Theme WooCommerce hiện đại, tối ưu hiệu năng và dễ dàng bảo trì.
+
+1. Môi trường & Công nghệ (Tech Stack)
+• PHP Version: Tối thiểu 8.1+ (Sử dụng Type hinting, strict types).
+
+• Build Tools: Vite hoặc Webpack.
+
+  • Sử dụng SCSS hoặc PostCSS.
+
+  • Tự động Minify JS/CSS cho Production.
+
+• Version Control: Git (Cấu trúc commit rõ ràng).
+
+• Dependency Management: Composer (PHP) và NPM/Yarn (JS).
+
+2. Kiến trúc Theme (Architecture)
+• Base: Modular Architecture (Không viết tất cả vào `functions.php`).
+
+• Phân tách `functions.php`:
+
+  • `/inc/setup.php`: Cấu hình theme support.
+
+  • `/inc/enqueue.php`: Quản lý assets.
+
+  • `/inc/woocommerce/`: Logic WooCommerce riêng biệt.
+
+• OOP: Khuyến khích sử dụng PHP Class để đóng gói chức năng.
+
+3. Tích hợp WooCommerce
+• Support: Bắt buộc `add_theme_support('woocommerce')`.
+
+• Hooks & Filters: Sử dụng Hooks để thay đổi giao diện, hạn chế tối đa việc override file template trong thư mục theme.
+
+• CSS: Tắt style mặc định của Woo và viết lại để tối ưu (hoặc chỉ override các phần cần thiết).
+
+• AJAX: Hỗ trợ Mini-cart và Add to Cart AJAX.
+
+4. Quản lý Dữ liệu
+• Custom Fields: Sử dụng ACF Pro (Local JSON để đồng bộ qua Git).
+
+• Options: Sử dụng Customize API hoặc ACF Option Page cho các thiết lập Global (Logo, Contact info).
+
+5. Frontend & Performance
+• CSS Framework: Tailwind CSS (khuyên dùng) hoặc Bootstrap 5 (Modular).
+
+• JS: Ưu tiên Vanilla JS, hạn chế jQuery. Dùng Alpine.js cho các tương tác nhỏ.
+
+• Icons: SVG Inline (tránh FontAwesome full library).
+
+6. Bảo mật & Code Standard
+• Sanitization: Escape dữ liệu đầu ra (`esc_html`, `esc_url`, `esc_attr`).
+
+• Prefixing: Đặt tiền tố cho function/class (ví dụ: `mytheme_`).
+
+• Standard: Tuân thủ WordPress Coding Standards (WPCS).
+
+7. Khả năng mở rộng
+• Child Theme Friendly: Code mở để có thể override bằng Child Theme.
+
+• i18n: Sẵn sàng đa ngôn ngữ (Translation Ready).

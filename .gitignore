@@ -1,0 +1,10 @@
+# WordPress & Theme specific
+node_modules/
+vendor/
+.DS_Store
+.vscode/
+*.log
+dist/
+.env
+
+package-lock.json

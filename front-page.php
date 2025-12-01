@@ -1,0 +1,318 @@
+<?php
+/**
+ * The template for displaying front page
+ *
+ * @package Anthome
+ */
+
+get_header();
+
+// Hero Section Image
+$hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1600&q=80';
+?>
+
+<main class="site-main mt-lg-0 mt-3">
+    
+    <!-- Top Layout: Sidebar & Slider -->
+    <section class="home-top-section mb-5">
+        <div class="container">
+            <div class="row g-0">
+                <!-- Left Sidebar Spacer (Menu is Absolute from Header) -->
+                <div class="col-lg-3 d-none d-lg-block position-relative">
+                    <!-- Placeholder to push content if menu wasn't absolute, 
+                         but since it is absolute, this col keeps the grid structure 
+                         and we can put banners or just leave empty if menu covers it. 
+                         The menu in header has min-height 400px, same as slider.
+                    -->
+                </div>
+
+                <!-- Right Content: Slider -->
+                <div class="col-lg-9">
+                    <div class="hero-slider position-relative" style="height: 369px; overflow: hidden;">
+                        <div class="hero-slide h-100 w-100" style="background: url('<?php echo esc_url($hero_bg); ?>') no-repeat center center/cover;">
+                            <div class="hero-overlay" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); position: absolute; inset: 0;"></div>
+                            <div class="hero-content position-absolute top-50 start-0 translate-middle-y p-5 text-white" data-aos="fade-right">
+                                <span class="d-block mb-2 text-uppercase fw-bold text-warning ls-1">Khuyến mãi mùa hè</span>
+                                <h1 class="display-4 fw-bold font-playfair mb-4 text-shadow">RÈM CỬA CAO CẤP<br>GIÁ TỐT NHẤT</h1>
+                                <p class="lead mb-4 d-none d-md-block">Mang đến vẻ đẹp sang trọng và hiện đại cho ngôi nhà của bạn.</p>
+                                <?php if ( anthome_is_woocommerce_activated() ) : ?>
+                                    <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="btn btn-primary btn-lg rounded-0 px-4 fw-bold shadow-sm">Mua ngay</a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="container mb-5">
+        <div class="bg-white shadow-sm border p-4">
+            <div class="row g-4">
+                <div class="col-md-3 col-6 text-center border-end">
+                    <i class="bi bi-truck fs-2 text-primary mb-2"></i>
+                    <h6 class="fw-bold mb-1">Giao hàng miễn phí</h6>
+                    <small class="text-muted">Đơn hàng > 500k</small>
+                </div>
+                <div class="col-md-3 col-6 text-center border-end">
+                    <i class="bi bi-arrow-repeat fs-2 text-primary mb-2"></i>
+                    <h6 class="fw-bold mb-1">Đổi trả 30 ngày</h6>
+                    <small class="text-muted">Nếu có lỗi NSX</small>
+                </div>
+                <div class="col-md-3 col-6 text-center border-end">
+                    <i class="bi bi-patch-check fs-2 text-primary mb-2"></i>
+                    <h6 class="fw-bold mb-1">Bảo hành dài hạn</h6>
+                    <small class="text-muted">Cam kết chất lượng</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <i class="bi bi-headset fs-2 text-primary mb-2"></i>
+                    <h6 class="fw-bold mb-1">Hỗ trợ 24/7</h6>
+                    <small class="text-muted">Hotline: <?php echo esc_html( anthome_get_option( 'phone', '0908.719.379' ) ); ?></small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories (Grid) -->
+    <section class="container mb-5">
+        <h3 class="fw-bold text-uppercase border-bottom pb-2 mb-4"><span class="text-primary border-bottom border-primary border-3 pb-2">Danh mục</span> nổi bật</h3>
+        <div class="row g-3">
+            <?php
+            $cats = get_terms( array( 'taxonomy' => 'product_cat', 'number' => 8, 'parent' => 0, 'hide_empty' => false ) );
+            if ( ! is_wp_error( $cats ) && ! empty( $cats ) ) {
+                foreach ( $cats as $cat ) {
+                    // Placeholder image if no thumbnail
+                    $thumb_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+                    $img_url = $thumb_id ? wp_get_attachment_url( $thumb_id ) : 'https://placehold.co/300x200?text=' . $cat->name;
+                    ?>
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="text-decoration-none">
+                            <div class="card border-0 shadow-sm h-100 hover-shadow transition">
+                                <div class="ratio ratio-4x3">
+                                    <img src="<?php echo esc_url( $img_url ); ?>" class="card-img-top object-fit-cover" alt="<?php echo  $cat->name ; ?>">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h6 class="card-title text-dark small fw-bold mb-0 text-capitalize"><?php echo esc_html( $cat->name ); ?></h6>
+                                    <small class="text-muted"><?php echo $cat->count; ?> sản phẩm</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+    </section>
+
+    <!-- Product Block 1: Rèm Cửa (Example) -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center bg-light p-3 border mb-3 rounded-top">
+            <h4 class="fw-bold text-uppercase m-0 text-primary">Sản phẩm mới</h4>
+            <a href="<?php echo anthome_is_woocommerce_activated() ? esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ) : '#'; ?>" class="text-decoration-none small fw-bold">Xem tất cả <i class="bi bi-chevron-right"></i></a>
+        </div>
+        <div class="row g-3">
+            <?php
+            if ( anthome_is_woocommerce_activated() ) {
+                $args = array(
+                    'post_type' => 'product',
+                    'posts_per_page' => 4,
+                    'orderby' => 'date',
+                    'order' => 'DESC'
+                );
+                $products = new WP_Query( $args );
+                if ( $products->have_posts() ) {
+                    while ( $products->have_posts() ) : $products->the_post();
+                        // Pass thumbnail size to product template
+                        // Options: 'thumbnail', 'medium', 'large', 'full', 
+                        //          'woocommerce_thumbnail', 'woocommerce_single'
+                        $thumbnail_size = 'full'; // You can change this
+                        wc_get_template_part( 'content', 'product' );
+                    endwhile;
+                    wp_reset_postdata();
+                }
+            }
+            ?>
+        </div>
+    </section>
+
+    <!-- Product Block 2: Sản phẩm bán chạy -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center bg-light p-3 border mb-3 rounded-top">
+            <h4 class="fw-bold text-uppercase m-0 text-primary">Sản phẩm bán chạy</h4>
+            <a href="<?php echo anthome_is_woocommerce_activated() ? esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ) : '#'; ?>" class="text-decoration-none small fw-bold">Xem tất cả <i class="bi bi-chevron-right"></i></a>
+        </div>
+        <div class="row g-3">
+            <?php
+            if ( anthome_is_woocommerce_activated() ) {
+                $args = array(
+                    'post_type' => 'product',
+                    'posts_per_page' => 4,
+                    'meta_key' => 'total_sales',
+                    'orderby' => 'meta_value_num',
+                    'order' => 'DESC'
+                );
+                $products = new WP_Query( $args );
+                if ( $products->have_posts() ) {
+                    while ( $products->have_posts() ) : $products->the_post();
+                        $thumbnail_size = 'full';
+                        wc_get_template_part( 'content', 'product' );
+                    endwhile;
+                    wp_reset_postdata();
+                }
+            }
+            ?>
+        </div>
+    </section>
+
+    <!-- Product Block 3: Sản phẩm theo danh mục 1 -->
+    <?php
+    if ( anthome_is_woocommerce_activated() ) {
+        // Lấy danh mục đầu tiên
+        $featured_cats = get_terms( array( 
+            'taxonomy' => 'product_cat', 
+            'number' => 1, 
+            'parent' => 0,
+            'hide_empty' => true,
+            'orderby' => 'count',
+            'order' => 'DESC'
+        ) );
+        
+        if ( ! is_wp_error( $featured_cats ) && ! empty( $featured_cats ) ) {
+            $cat_1 = $featured_cats[0];
+            ?>
+            <section class="container mb-5">
+                <div class="d-flex justify-content-between align-items-center bg-light p-3 border mb-3 rounded-top">
+                    <h4 class="fw-bold text-uppercase m-0 text-primary">
+                        <i class="bi bi-tag-fill me-2"></i><?php echo esc_html( $cat_1->name ); ?>
+                    </h4>
+                    <a href="<?php echo esc_url( get_term_link( $cat_1 ) ); ?>" class="text-decoration-none small fw-bold">Xem tất cả <i class="bi bi-chevron-right"></i></a>
+                </div>
+                <div class="row g-3">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 4,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field' => 'term_id',
+                                'terms' => $cat_1->term_id,
+                            ),
+                        ),
+                    );
+                    $products = new WP_Query( $args );
+                    if ( $products->have_posts() ) {
+                        while ( $products->have_posts() ) : $products->the_post();
+                            $thumbnail_size = 'full';
+                            wc_get_template_part( 'content', 'product' );
+                        endwhile;
+                        wp_reset_postdata();
+                    }
+                    ?>
+                </div>
+            </section>
+            <?php
+        }
+    }
+    ?>
+
+    <!-- Product Block 3: Sản phẩm theo danh mục 1 -->
+    <?php
+    if ( anthome_is_woocommerce_activated() ) {
+        // Lấy danh mục đầu tiên
+        $featured_cats = get_terms( array( 
+            'taxonomy' => 'product_cat', 
+            'number' => 2, 
+            'parent' => 0,
+            'hide_empty' => true,
+            'orderby' => 'count',
+            'order' => 'DESC'
+        ) );
+        
+        if ( ! is_wp_error( $featured_cats ) && ! empty( $featured_cats ) ) {
+            $cat_2 = $featured_cats[1];
+            ?>
+            <section class="container mb-5">
+                <div class="d-flex justify-content-between align-items-center bg-light p-3 border mb-3 rounded-top">
+                    <h4 class="fw-bold text-uppercase m-0 text-primary">
+                        <i class="bi bi-tag-fill me-2"></i><?php echo esc_html( $cat_2->name ); ?>
+                    </h4>
+                    <a href="<?php echo esc_url( get_term_link( $cat_2 ) ); ?>" class="text-decoration-none small fw-bold">Xem tất cả <i class="bi bi-chevron-right"></i></a>
+                </div>
+                <div class="row g-3">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 4,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field' => 'term_id',
+                                'terms' => $cat_2->term_id,
+                            ),
+                        ),
+                    );
+                    $products = new WP_Query( $args );
+                    if ( $products->have_posts() ) {
+                        while ( $products->have_posts() ) : $products->the_post();
+                            $thumbnail_size = 'full';
+                            wc_get_template_part( 'content', 'product' );
+                        endwhile;
+                        wp_reset_postdata();
+                    }
+                    ?>
+                </div>
+            </section>
+            <?php
+        }
+    }
+    ?>
+
+    <!-- Banner Middle -->
+    <section class="container mb-5">
+        <div class="row">
+            <div class="col-12">
+                <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=1200&q=80" alt="Banner" class="img-fluid w-100 rounded shadow-sm" style="max-height: 200px; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="container py-5 mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-2">
+            <h3 class="fw-bold font-playfair text-uppercase m-0"><span class="text-primary">Tin tức</span> - Tư vấn</h3>
+            <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="text-decoration-none text-dark fw-bold small">Xem tin tức <i class="bi bi-arrow-right"></i></a>
+        </div>
+        
+        <div class="row g-4">
+            <?php
+            $blog_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3 ) );
+            if ( $blog_query->have_posts() ) :
+                while ( $blog_query->have_posts() ) : $blog_query->the_post();
+                    ?>
+                    <div class="col-md-4">
+                        <div class="card border h-100 shadow-sm">
+                            <?php if ( has_post_thumbnail() ) : ?>
+                                <a href="<?php the_permalink(); ?>" class="ratio ratio-16x9 d-block">
+                                    <img src="<?php the_post_thumbnail_url('medium'); ?>" class="card-img-top object-fit-cover" alt="<?php the_title(); ?>">
+                                </a>
+                            <?php endif; ?>
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold line-clamp-2"><a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none"><?php the_title(); ?></a></h6>
+                                <p class="card-text text-muted small line-clamp-3"><?php echo wp_trim_words( get_the_excerpt(), 15 ); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </div>
+    </section>
+
+</main>
+
+<?php get_footer(); ?>

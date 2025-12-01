@@ -1,0 +1,38 @@
+my-custom-theme/
+├── assets/                  # Chứa file tĩnh (đã compile)
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── fonts/
+├── inc/                     # Chứa logic PHP (Backend)
+│   ├── classes/             # Các Class PHP (OOP)
+│   │   ├── class-theme-setup.php
+│   │   ├── class-breadcrumb.php
+│   │   └── class-svg-icons.php
+│   ├── woocommerce/         # Logic riêng cho Woo (Quan trọng)
+│   │   ├── hooks.php        # Tập trung các add_action, remove_action
+│   │   ├── filters.php      # Tập trung các add_filter
+│   │   └── functions.php    # Các hàm helper cho Woo
+│   ├── custom-post-types/   # Đăng ký CPT (nếu có)
+│   ├── enqueue.php          # File gọi CSS/JS
+│   ├── template-tags.php    # Các hàm custom template tags
+│   └── helpers.php          # Các hàm tiện ích chung
+├── src/                     # Source code (Dành cho Dev - chưa compile)
+│   ├── scss/                # File SCSS gốc
+│   └── js/                  # File JS gốc
+├── template-parts/          # Các block giao diện nhỏ (Component)
+│   ├── global/              # Header, Footer, Sidebar parts
+│   ├── product/             # Component thẻ sản phẩm (Card)
+│   ├── cart/                # Component giỏ hàng
+│   └── checkout/            # Component thanh toán
+├── woocommerce/             # Override Template Woo (Hạn chế tối đa)
+│   ├── archive-product.php  # Trang cửa hàng
+│   └── single-product.php   # Trang chi tiết
+├── languages/               # File ngôn ngữ .pot, .po, .mo
+├── .gitignore               # Cấu hình git bỏ qua file rác/node_modules
+├── composer.json            # Quản lý thư viện PHP
+├── package.json             # Quản lý thư viện JS & Build scripts
+├── functions.php            # Entry point (chỉ dùng để require file trong /inc)
+├── style.css                # Khai báo thông tin Theme
+├── screenshot.png           # Ảnh đại diện Theme
+└── index.php                # File fallback bắt buộc

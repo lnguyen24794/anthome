@@ -1,0 +1,2877 @@
+/* --- CUSTOM CSS FOR MODERN LOOK --- */
+:root {
+    --primary-color: #d4a373;
+    --accent-color: #d4a373;
+    --light-bg: #f8f9fa;
+    --text-color: #333;
+}
+
+body {
+    font-family: "Barlow", sans-serif;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+body * {
+    font-family: "Barlow", sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: "Barlow", sans-serif;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+
+/* Navbar Tinh tế */
+.navbar {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #eee;
+}
+.nav-link {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--primary-color) !important;
+    transition: 0.3s;
+}
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+}
+
+/* Product Card Hiện đại */
+.product-card {
+    border: none;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+.card-img-wrapper {
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+}
+.card-img-top {
+    transition: transform 0.5s ease;
+}
+.product-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 0; /* Vuông vức hiện đại */
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.btn-primary-custom:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Cart & Footer */
+.cart-badge {
+    background-color: var(--accent-color);
+    font-size: 0.6rem;
+}
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 60px 0;
+}
+
+/* --- CATEGORY BANNER STYLE --- */
+.cat-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    height: 100%;
+    min-height: 250px;
+}
+.cat-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.cat-card:hover img {
+    transform: scale(1.1);
+}
+.cat-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.cat-card:hover .cat-overlay {
+    background: rgba(0,0,0,0.4);
+}
+.cat-title {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    border: 1px solid white;
+    padding: 10px 20px;
+    z-index: 2;
+}
+
+/* --- COUNTDOWN SECTION --- */
+.promo-section {
+    background-color: #f1f2f6; /* Màu xám khói nhẹ */
+}
+.countdown-item {
+    background: white;
+    padding: 10px;
+    min-width: 60px;
+    text-align: center;
+    margin-right: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.countdown-number {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    display: block;
+}
+.countdown-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #888;
+}
+
+/* --- SERVICE BOX --- */
+.service-box {
+    padding: 30px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+.service-box:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+/* --- MEGA MENU STYLES --- */
+
+/* 1. Thiết lập khung Mega Menu Full Width */
+@media (min-width: 992px) {
+    .dropdown.has-megamenu {
+        position: static; /* Để menu con bung theo chiều rộng của container cha hoặc body */
+    }
+    
+    .dropdown-menu.megamenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 0;
+        margin-top: -2px;
+        border: none;
+        border-top: 1px solid #eee;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        display: none; /* Mặc định ẩn */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Hiệu ứng hiện menu khi hover vào Nav Item cha */
+    .dropdown.has-megamenu:hover .dropdown-menu.megamenu {
+        display: block;
+        opacity: 1;
+        animation: slideUp 0.3s ease forwards;
+    }
+}
+
+/* Tạo một lớp trong suốt nằm đè lên khoảng hở */
+.dropdown-menu.megamenu::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -20px; 
+    left: 0;
+    width: 100%;
+    height: 20px; 
+    background: transparent; 
+    z-index: -1;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Layout bên trong Mega Menu */
+.megamenu-container {
+    background: #fff;
+    min-height: 400px; /* Chiều cao cố định để tránh giật layout khi hover */
+}
+
+/* Cột bên trái (Category List) */
+.megamenu-sidebar {
+    background-color: #f8f9fa;
+    height: 100%;
+    padding: 20px 0;
+    border-right: 1px solid #eee;
+}
+
+.megamenu-nav .nav-link {
+    color: var(--primary-color) !important;
+    padding: 12px 25px;
+    text-align: left;
+    border-radius: 0;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.megamenu-nav .nav-link:hover,
+.megamenu-nav .nav-link.active {
+    background-color: #fff;
+    color: var(--accent-color) !important;
+    box-shadow: -4px 0 0 var(--accent-color) inset; /* Viền màu bên trái */
+}
+
+/* Nội dung bên phải */
+.megamenu-content {
+    padding: 30px;
+    height: 100%;
+}
+
+.sub-cat-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.sub-cat-list li a {
+    color: #666;
+    font-size: 0.9rem;
+    padding: 5px 0;
+    display: block;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.sub-cat-list li a:hover {
+    color: var(--accent-color);
+    transform: translateX(5px);
+}
+
+/* Product Card nhỏ trong Menu */
+.menu-product-card img {
+    border-radius: 4px;
+    transition: 0.3s;
+}
+.menu-product-card:hover img {
+    opacity: 0.8;
+}
+.menu-product-price {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* --- RESPONSIVE HEADER LAYOUT --- */
+
+/* 1. Thiết lập trên MOBILE (Màn hình nhỏ hơn 992px) */
+@media (max-width: 991.98px) {
+    /* Container của Navbar chuyển thành Flex layout */
+    .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Dàn đều 3 phần tử: Menu - Logo - Icons */
+        position: relative;
+    }
+
+    /* Logo: Dùng kỹ thuật Absolute Center để căn giữa tuyệt đối */
+    .navbar-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0; /* Xóa margin mặc định */
+    }
+
+    /* Nút Menu (Toggler): Đảm bảo nó nằm bên trái */
+    .navbar-toggler {
+        order: 1; 
+        z-index: 10; /* Đảm bảo bấm được */
+    }
+
+    /* Cụm Icon bên phải */
+    .nav-icons-right {
+        order: 3;
+        z-index: 10;
+    }
+}
+
+/* 2. Tinh chỉnh Offcanvas (Menu trượt từ trái sang) cho đẹp hơn */
+.offcanvas {
+    max-width: 80%; /* Menu mobile không chiếm hết màn hình */
+}
+.offcanvas-header {
+    border-bottom: 1px solid #eee;
+}
+
+/* 3. Điều chỉnh hiển thị Mega Menu trên Mobile */
+@media (max-width: 991.98px) {
+    /* Trên mobile, Mega menu sẽ hiện dạng accordion đẩy xuống chứ không phải popup */
+    .dropdown-menu.megamenu {
+        position: static; /* Bỏ position absolute */
+        display: none; /* Mặc định ẩn */
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        padding-left: 15px; /* Thụt đầu dòng */
+    }
+    
+    /* Khi bấm vào thì hiện ra (Bootstrap JS tự xử lý class .show) */
+    .dropdown-menu.megamenu.show {
+        display: block !important; 
+    }
+    
+    /* Ẩn cột bên trái của Mega Menu (Category Sidebar) để tiết kiệm chỗ trên mobile */
+    /* Hoặc bạn có thể style lại cho nó hiện dọc xuống */
+    .megamenu-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 15px;
+    }
+}
+
+/* --- MOBILE MEGA MENU OPTIMIZATION --- */
+@media (max-width: 991.98px) {
+    
+    /* 1. Reset Layout của Mega Menu */
+    .dropdown-menu.megamenu {
+        padding: 0;
+        max-height: 70vh; /* Giới hạn chiều cao, nếu dài quá thì cuộn bên trong menu */
+        overflow-y: auto; /* Cho phép cuộn dọc */
+    }
+
+    .megamenu-container {
+        flex-direction: column; /* Xếp chồng thay vì chia cột trái/phải */
+    }
+
+    /* 2. Biến Sidebar thành Thanh Tab trượt ngang (App Style) */
+    .megamenu-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+        background: #fff;
+        
+        /* Kỹ thuật Sticky: Dính chặt thanh này lên đầu khi cuộn menu */
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .megamenu-nav {
+        flex-direction: row !important; /* Xếp ngang */
+        flex-wrap: nowrap; /* Không xuống dòng */
+        overflow-x: auto; /* Cho phép trượt ngang */
+        padding-left: 15px;
+        padding-right: 15px;
+        gap: 10px;
+        
+        /* Ẩn thanh cuộn xấu xí */
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none; 
+    }
+    .megamenu-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Style cho nút Tab trên Mobile */
+    .megamenu-nav .nav-link {
+        border: 1px solid #eee;
+        border-radius: 20px; /* Bo tròn như viên thuốc */
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        white-space: nowrap; /* Giữ chữ trên 1 dòng */
+        background: #f8f9fa;
+        color: #555 !important;
+        box-shadow: none !important; /* Bỏ viền trái của desktop */
+    }
+
+    .megamenu-nav .nav-link.active {
+        background-color: var(--primary-color);
+        color: #fff !important;
+        border-color: var(--primary-color);
+    }
+
+    /* 3. Tinh chỉnh nội dung bên dưới */
+    .megamenu-content {
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    /* Ẩn các ảnh trang trí lớn không cần thiết trên mobile để tiết kiệm chỗ */
+    .megamenu-content img {
+        max-width: 60px; /* Thu nhỏ ảnh sản phẩm */
+    }
+    
+    .sub-cat-title {
+        margin-top: 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Sắp xếp lại Grid sản phẩm bên trong menu */
+    .megamenu-content .row > div {
+        width: 100%; /* Mỗi khối chiếm 1 dòng */
+        margin-bottom: 15px;
+    }
+    
+    /* Hiển thị sản phẩm dạng list nhỏ */
+    .menu-product-card {
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .navbar-nav {
+        height: 100vh;
+        padding-left: 15px !important;
+    }
+
+    /* Mobile Menu Vertical Items */
+    .megamenu .list-unstyled > li {
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
+    }
+    .megamenu .list-unstyled > li:last-child {
+        border-bottom: none;
+    }
+    .megamenu .list-unstyled .list-unstyled {
+        border-top: 1px solid #f8f8f8;
+        margin-top: 8px;
+        padding-top: 8px;
+    }
+
+    .navbar-nav .dropdown-menu:not(.megamenu) {
+        box-shadow: none !important;
+    }
+}
+
+
+/* --- CUSTOM DROPDOWN STYLES (Primary Menu) --- */
+
+/* 1. Hiển thị Dropdown khi Hover (Desktop only) */
+@media (min-width: 992px) {
+    /* Áp dụng cho cả .dropdown thường và .has-megamenu */
+    .navbar-nav .dropdown:hover > .dropdown-menu {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        margin-top: 0; /* Sát mép navbar */
+        animation: slideUp 0.3s ease forwards;
+    }
+    
+    /* Lớp giả để duy trì hover khi di chuyển chuột xuống menu */
+    .navbar-nav .dropdown > .dropdown-menu::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -20px; /* Tăng vùng đệm lên */
+        left: 0;
+        width: 100%;
+        height: 20px;
+        background: transparent;
+        z-index: -1;
+    }
+}
+
+/* 2. Style cho Dropdown Box (Không ảnh hưởng Mega Menu vì Mega Menu có class riêng đè lên) */
+.navbar-nav .dropdown-menu:not(.megamenu) {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 0;
+    min-width: 220px;
+    background: #fff;
+    margin-top: 15px; /* Khoảng cách ban đầu để tạo hiệu ứng trượt lên */
+    display: none;
+}
+
+/* 3. Style cho từng Item trong Dropdown thường */
+.navbar-nav .dropdown-menu:not(.megamenu) .dropdown-item {
+    padding: 12px 20px;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+    position: relative;
+    background: transparent; /* Đảm bảo ko bị đè màu */
+}
+
+/* Bỏ border cho item cuối cùng */
+.navbar-nav .dropdown-menu:not(.megamenu) .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Hiệu ứng Hover vào Item */
+.navbar-nav .dropdown-menu:not(.megamenu) .dropdown-item:hover,
+.navbar-nav .dropdown-menu:not(.megamenu) .dropdown-item:focus {
+    background-color: #f8f9fa;
+    color: var(--accent-color);
+    padding-left: 25px; /* Dịch chuyển chữ sang phải */
+}
+
+.show {
+    display: block !important;
+}
+/* --- NEW LAYOUT STYLES (Thegioiremcua.vn inspired) --- */
+
+/* Top Bar */
+.top-bar {
+    font-size: 0.85rem;
+}
+.top-bar a:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Main Header */
+.main-header {
+    background-color: #fff;
+}
+.icon-box {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 50%;
+}
+
+/* Vertical Menu Header */
+.vertical-menu-header {
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 4px 0px 0 0;
+}
+
+/* Vertical Menu List */
+.vertical-menu {
+    border-top: none;
+    z-index: 100;
+}
+.vertical-menu-item:hover > a {
+    background-color: #f9f9f9;
+    color: var(--primary-color) !important;
+}
+.vertical-menu-item:hover .vertical-submenu {
+    display: block !important;
+}
+
+/* Hover Shadow Utility */
+.hover-shadow:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Product Content Block Header */
+.bg-light.rounded-top {
+    border-bottom: 2px solid var(--primary-color) !important;
+}
+
+/* Text Shadow */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Line Clamp */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 991.98px) {
+    .main-header .navbar-brand {
+        font-size: 1.2rem;
+    }
+    .header-nav {
+        display: none; /* Hide desktop nav on mobile */
+    }
+    .hero-slider {
+        height: 250px !important;
+    }
+    .hero-content {
+        padding: 1.5rem !important;
+    }
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    #menu-menu-ngang-1 > .menu-item  {
+        padding: 5px 0px;
+    }
+    
+    .vertical-menu {
+        display: none !important;
+    }
+}
+
+.menu-item > a {
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+/* --- MEGA MENU VERTICAL STYLES --- */
+.vertical-menu {
+    position: relative; /* Container gốc */
+}
+
+.vertical-menu-item {
+    /* position: static; -> Để submenu full height theo container cha vertical-menu */
+    /* Tuy nhiên, nếu muốn submenu căn theo item thì để relative. 
+       Để đẹp như Tiki/Shopee thì submenu nên full height bằng menu cha. */
+    position: static; 
+}
+
+.vertical-submenu {
+    position: absolute;
+    top: 0;
+    left: 100%; /* Đẩy sang phải */
+    width: 750px; /* Chiều rộng cố định đủ lớn cho Grid */
+    height: 100%; /* Chiều cao bằng menu cha */
+    background: #fff;
+    display: none; /* Mặc định ẩn */
+    z-index: 999;
+    overflow-y: auto; /* Scroll nếu nội dung quá dài */
+}
+
+/* Hiệu ứng hover menu item */
+.vertical-menu-item > a {
+    border-left: 3px solid transparent;
+    text-transform: capitalize !important;
+}
+.vertical-menu-item:hover > a {
+    background-color: #fff;
+    color: var(--primary-color) !important;
+    border-left-color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Hiển thị submenu khi hover */
+.vertical-menu-item:hover .vertical-submenu {
+    display: block;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive: Ẩn submenu mega trên màn hình nhỏ hoặc xử lý khác */
+@media (max-width: 991.98px) {
+    .vertical-submenu {
+        position: static;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        border: none;
+        display: none;
+    }
+    .vertical-menu-item:hover .vertical-submenu {
+        display: block; /* Trên mobile sẽ đẩy dọc xuống */
+    }
+}
+
+/* --- FIX Z-INDEX ISSUE --- */
+/* Ensure header is above main content */
+.site-header {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Ensure vertical menu wrapper is above slider */
+.vertical-menu-wrapper {
+    z-index: 1001; /* Higher than header base */
+}
+
+/* Ensure submenu is even higher */
+.vertical-submenu {
+    z-index: 1002;
+}
+
+/* Ensure slider is lower */
+.hero-slider {
+    z-index: 1; 
+}
+
+.bg-primary { 
+    background-color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+a {
+    color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+/* Product Card */
+
+.woocommerce-loop-product__title {
+    font-size: 1rem !important;
+    font-weight: 500;
+    color: var(--primary-color) !important;
+    text-transform: capitalize;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    height: 40px;
+    text-overflow: ellipsis;
+}
+
+.woocommerce-Price-amount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color) !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========================================
+   Breadcrumb Styles
+   ======================================== */
+
+/* WooCommerce Breadcrumb Wrapper */
+.woocommerce-breadcrumb-wrapper,
+.anthome-breadcrumb {
+    margin-bottom: 1.5rem;
+}
+
+/* Breadcrumb Container */
+.breadcrumb {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 0.75rem 1.25rem !important;
+    margin-bottom: 0 !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.9rem;
+}
+
+/* Breadcrumb Items */
+.breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Breadcrumb Links */
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--secondary-color);
+}
+
+/* Active Breadcrumb */
+.breadcrumb-item.active {
+    color: #495057;
+    font-weight: 600;
+}
+
+/* Breadcrumb Icons */
+.breadcrumb-item i {
+    font-size: 0.875rem;
+    vertical-align: middle;
+}
+
+/* Chevron Delimiter */
+.breadcrumb-item + .breadcrumb-item::before {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: #6c757d;
+    content: "";
+}
+
+/* Custom Delimiter with Bootstrap Icons */
+.woocommerce-breadcrumb-wrapper .breadcrumb-item + .breadcrumb-item::before {
+    content: none;
+}
+
+/* Responsive Breadcrumb */
+@media (max-width: 768px) {
+    .breadcrumb {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem !important;
+        flex-wrap: wrap;
+    }
+    
+    .breadcrumb-item {
+        margin-bottom: 0.25rem;
+    }
+    
+    .breadcrumb-item a {
+        font-weight: 500;
+    }
+}
+
+/* Breadcrumb Text Truncate for Long Names */
+@media (max-width: 576px) {
+    .breadcrumb-item {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .breadcrumb-item.active {
+        max-width: 200px;
+    }
+}
+
+/* Animation on Hover */
+.breadcrumb-item a {
+    position: relative;
+}
+
+.breadcrumb-item a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.breadcrumb-item a:hover::after {
+    width: 100%;
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    .breadcrumb {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .breadcrumb-item a {
+        color: #63b3ed;
+    }
+    
+    .breadcrumb-item.active {
+        color: #e2e8f0;
+    }
+}
+
+/* ========================================
+   WooCommerce Pagination & Shop Loop Styles
+   ======================================== */
+
+/* Pagination Container */
+.woocommerce-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.woocommerce-pagination ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: none !important;
+}
+
+/* Pagination Items */
+.woocommerce-pagination ul li {
+    display: inline-block;
+    border: none !important;
+}
+
+.woocommerce-pagination ul li a,
+.woocommerce-pagination ul li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.woocommerce-pagination ul li a:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Current Page */
+.woocommerce-pagination ul li span.current {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Dots */
+.woocommerce-pagination ul li span.dots {
+    border: none;
+    background: transparent;
+    color: #6c757d;
+}
+
+/* Prev/Next Buttons */
+.woocommerce-pagination ul li a.prev,
+.woocommerce-pagination ul li a.next {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+}
+
+/* Disabled State */
+.woocommerce-pagination ul li span:not(.current):not(.dots) {
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Result Count */
+.woocommerce-result-count {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.woocommerce-result-count strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Ordering Dropdown */
+.woocommerce-ordering select,
+.woocommerce-products-per-page select {
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.woocommerce-ordering select:focus,
+.woocommerce-products-per-page select:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Products Per Page Selector */
+.woocommerce-products-per-page {
+    display: flex;
+    align-items: center;
+}
+
+.woocommerce-products-per-page label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.woocommerce-pagination ul li span,
+.woocommerce-pagination ul li a {
+    display: inline-flex !important;
+}
+
+/* View Mode Toggle */
+.woocommerce-view-mode .btn-group {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.woocommerce-view-mode .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}
+
+.woocommerce-view-mode .btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Back to Top Button */
+.smooth-scroll {
+    transition: all 0.3s ease;
+}
+
+.smooth-scroll:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* No Products Found */
+.woocommerce-no-products-found {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 3rem 2rem !important;
+}
+
+.woocommerce-no-products-found i.display-1 {
+    font-size: 4rem;
+    opacity: 0.3;
+}
+
+/* Before Shop Loop Container */
+.woocommerce-before-shop-loop {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Shop Controls Wrapper */
+.shop-controls-wrapper {
+    /* Main wrapper with full width and space-between */
+}
+
+/* Shop Controls Groups */
+.shop-controls-left,
+.shop-controls-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}   
+
+/* Remove extra margins from elements inside groups */
+.shop-controls-left .woocommerce-view-mode,
+.shop-controls-left .woocommerce-products-per-page,
+.shop-controls-right .woocommerce-result-count,
+.shop-controls-right .woocommerce-ordering {
+    margin: 0 !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .shop-controls-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .shop-controls-left,
+    .shop-controls-right {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Pagination */
+    .woocommerce-pagination ul li a,
+    .woocommerce-pagination ul li span {
+        min-width: 35px;
+        height: 35px;
+        padding: 0.375rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Hide some pagination numbers on mobile */
+    .woocommerce-pagination ul li:not(.active):not(:first-child):not(:last-child):not(:nth-child(2)):not(:nth-last-child(2)) {
+        display: none;
+    }
+    
+    /* Shop Controls Groups on Mobile */
+    .shop-controls-left,
+    .shop-controls-right {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    /* Result Count */
+    .woocommerce-result-count {
+        font-size: 0.8rem;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    /* Ordering */
+    .woocommerce-ordering {
+        width: 100%;
+    }
+    
+    .woocommerce-ordering select,
+    .woocommerce-products-per-page select {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+    
+    /* Products per page */
+    .woocommerce-products-per-page {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .woocommerce-products-per-page label {
+        flex-shrink: 0;
+    }
+    
+    .woocommerce-products-per-page select {
+        flex: 1;
+    }
+    
+    /* View Mode */
+    .woocommerce-view-mode {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* No Products */
+    .woocommerce-no-products-found {
+        padding: 2rem 1rem !important;
+    }
+    
+    .woocommerce-no-products-found i.display-1 {
+        font-size: 3rem;
+    }
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading State for Pagination */
+.woocommerce-pagination.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Pagination Animation */
+.woocommerce-pagination ul li {
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Shop Header Flex Container */
+.woocommerce-before-shop-loop-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Active Filter Pills */
+.woocommerce-active-filters {
+    margin-bottom: 1rem;
+}
+
+.woocommerce-active-filters ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.woocommerce-active-filters li {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    background: #e9ecef;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+}
+
+.woocommerce-active-filters li a {
+    margin-left: 0.5rem;
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.woocommerce-active-filters li a:hover {
+    color: #bb2d3b;
+}
+
+/* ========================================
+   AJAX Price Filter Styles
+   ======================================== */
+
+/* Mobile Filter Toggle Button */
+.filter-toggle {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.filter-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.filter-toggle .bi-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+.filter-toggle .bi-chevron-down.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Price Filter Container */
+.price-filter-container {
+    padding: 0.5rem 0;
+}
+
+/* Price Input Fields */
+.price-filter-container input[type="number"] {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+    padding-right: 0.5rem;
+}
+
+.price-filter-container input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.price-filter-container input[type="number"]::-webkit-inner-spin-button,
+.price-filter-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.price-filter-container input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.price-filter-container label {
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+/* Price Slider Wrapper */
+.price-slider-wrapper {
+    height: 5px;
+    margin: 1rem 0;
+    padding: 0 0.5rem;
+}
+
+/* Price Progress Bar */
+.price-progress {
+    height: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+/* Range Inputs */
+.price-slider-wrapper input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: 0;
+    left: 0;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Range Input Track */
+.price-slider-wrapper input[type="range"]::-webkit-slider-track {
+    height: 5px;
+    background: #dee2e6;
+    border-radius: 5px;
+}
+
+.price-slider-wrapper input[type="range"]::-moz-range-track {
+    height: 5px;
+    background: #dee2e6;
+    border-radius: 5px;
+}
+
+/* Range Input Thumb */
+.price-slider-wrapper input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.price-slider-wrapper input[type="range"]::-moz-range-thumb {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.price-slider-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.price-slider-wrapper input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Active state */
+.price-slider-wrapper input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.price-slider-wrapper input[type="range"]:active::-moz-range-thumb {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Products Loading Overlay */
+.products-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 0.375rem;
+}
+
+.products-loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Active Filters */
+.active-filters {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.active-filters .badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.active-filters .badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.active-filters .badge i {
+    font-size: 0.75rem;
+}
+
+/* Filter Buttons */
+#apply-price-filter,
+#reset-price-filter {
+    transition: all 0.3s ease;
+}
+
+#apply-price-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#reset-price-filter:hover {
+    transform: rotate(180deg);
+}
+
+#apply-price-filter:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Sidebar Styling */
+.filter-list a:hover {
+    background: #f8f9fa;
+    padding-left: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+/* Sidebar Collapse Animation */
+#filterSidebar {
+    transition: all 0.3s ease-in-out;
+}
+
+#filterSidebar.collapsing {
+    transition: height 0.35s ease;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991px) {
+    /* Show filter toggle button */
+    .filter-toggle {
+        display: block !important;
+    }
+    
+    /* Sidebar animation */
+    #filterSidebar {
+        margin-bottom: 1rem;
+    }
+    
+    #filterSidebar.show {
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .price-filter-container input[type="number"] {
+        font-size: 0.875rem;
+    }
+    
+    .price-filter-container label {
+        font-size: 0.75rem;
+    }
+    
+    .price-slider-wrapper {
+        margin: 1.5rem 0;
+    }
+    
+    #apply-price-filter,
+    #reset-price-filter {
+        font-size: 0.875rem;
+    }
+    
+    /* Compact sidebar on mobile */
+    .card.border-0.shadow-sm {
+        margin-bottom: 0;
+    }
+    
+    .filter-list a {
+        font-size: 0.875rem;
+        padding: 0.25rem 0;
+    }
+}
+
+.woocommerce-product-gallery {
+    width: 100% !important;
+    float: unset !important;
+}
+
+.woocommerce-product-gallery .flex-viewport {
+    max-height: 500px !important;
+    min-height: 500px !important;
+}
+
+.woocommerce-product-gallery .flex-control-nav {
+    margin-top: 10px !important;
+    gap: 10px !important;
+}
+
+.woocommerce-product-gallery .flex-control-nav li {
+    margin-right: 5px !important;
+}
+
+.related .products {
+    display: flex;
+    gap: 10px !important;
+}
+
+/* ============================================================================
+   PRODUCT SEARCH CUSTOMIZATIONS
+   ============================================================================ */
+
+.header-search-form {
+    position: relative;
+}
+
+.product-search-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    display: none;
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.search-active {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25) !important;
+}
+
+.search-results-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+}
+
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+.search-results-count {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.search-close {
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.search-close:hover {
+    color: #000;
+}
+
+.search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    max-height: calc(70vh - 120px);
+}
+
+.search-result-item {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-link {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s;
+}
+
+.search-result-link:hover {
+    background-color: #f8f9fa;
+    color: inherit;
+}
+
+.search-result-image {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.search-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.search-result-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.search-result-price {
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+.search-result-stock {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+}
+
+.search-results-footer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+.search-results-loading,
+.search-results-message {
+    padding: 2rem;
+    text-align: center;
+}
+
+.search-results-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+/* Mobile responsive */
+@media (max-width: 767.98px) {
+    .product-search-dropdown {
+        position: fixed;
+        top: 70px;
+        left: 1rem;
+        right: 1rem;
+        max-height: calc(100vh - 90px);
+    }
+    
+    .search-result-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .search-result-title {
+        font-size: 0.8125rem;
+    }
+}
+
+/* ============================================================================
+   CART PAGE CUSTOMIZATIONS
+   ============================================================================ */
+
+.woocommerce-cart {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.woocommerce-cart-form__contents {
+    border: none !important;
+}
+
+.woocommerce-cart-form__contents thead {
+    background-color: #f8f9fa;
+}
+
+.woocommerce-cart-form__contents thead th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none !important;
+}
+
+.woocommerce-cart-form__contents tbody tr {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.woocommerce-cart-form__contents tbody td {
+    padding: 1.5rem 1rem;
+    vertical-align: middle;
+    border: none !important;
+}
+
+.product-thumbnail img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+}
+
+.product-name a {
+    color: #212529;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.product-name a:hover {
+    color: var(--bs-primary);
+}
+
+.product-remove .remove {
+    color: #dc3545 !important;
+    font-size: 1.25rem;
+    transition: opacity 0.2s;
+}
+
+.product-remove .remove:hover {
+    opacity: 0.7;
+}
+
+.quantity .qty {
+    width: 80px;
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+}
+
+.quantity .qty:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.product-price,
+.product-subtotal {
+    font-weight: 600;
+    color: var(--bs-primary);
+    font-size: 1.125rem;
+}
+
+.cart-collaterals {
+    margin-top: 2rem;
+}
+
+.cart_totals {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+}
+
+.cart_totals h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.cart_totals table {
+    width: 100%;
+}
+
+.cart_totals th,
+.cart_totals td {
+    padding: 0.75rem 0;
+    border: none !important;
+}
+
+.cart_totals .order-total th,
+.cart_totals .order-total td {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-top: 1rem;
+    border-top: 2px solid #dee2e6 !important;
+    color: var(--bs-primary);
+}
+
+.estimated-delivery td {
+    color: #198754;
+}
+
+.cart-trust-badges {
+    margin-top: 3rem;
+}
+
+.cart-trust-badges i {
+    opacity: 0.8;
+}
+
+.actions .button {
+    background-color: var(--bs-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 0.375rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+}
+
+.actions .button:hover {
+    background-color: var(--bs-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile responsive */
+@media (max-width: 767.98px) {
+    .woocommerce-cart-form__contents thead {
+        display: none;
+    }
+    
+    .woocommerce-cart-form__contents tbody tr {
+        display: block;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+    }
+    
+    .woocommerce-cart-form__contents tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border: none !important;
+    }
+    
+    .woocommerce-cart-form__contents tbody td::before {
+        content: attr(data-title);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+    
+    .product-thumbnail,
+    .product-remove {
+        display: block;
+        text-align: center;
+    }
+    
+    .product-thumbnail::before,
+    .product-remove::before {
+        display: none;
+    }
+}
+
+/* ============================================================================
+   CHECKOUT PAGE CUSTOMIZATIONS
+   ============================================================================ */
+
+.woocommerce-checkout {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.woocommerce-billing-fields h3,
+.woocommerce-shipping-fields h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.woocommerce-checkout .form-row {
+    margin-bottom: 1.5rem;
+}
+
+.woocommerce-checkout label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.woocommerce-checkout .required {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.woocommerce-checkout input[type="text"],
+.woocommerce-checkout input[type="email"],
+.woocommerce-checkout input[type="tel"],
+.woocommerce-checkout select,
+.woocommerce-checkout textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.woocommerce-checkout input:focus,
+.woocommerce-checkout select:focus,
+.woocommerce-checkout textarea:focus {
+    border-color: var(--bs-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+#order_review_heading {
+    display: none; /* Hide duplicate heading */
+}
+
+#order_review {
+    background: #fff;
+}
+
+.woocommerce-checkout-review-order-table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.woocommerce-checkout-review-order-table thead {
+    background: #f8f9fa;
+}
+
+.woocommerce-checkout-review-order-table th,
+.woocommerce-checkout-review-order-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.woocommerce-checkout-review-order-table .cart_item td {
+    vertical-align: middle;
+}
+
+.woocommerce-checkout-review-order-table .product-name {
+    font-weight: 600;
+}
+
+.woocommerce-checkout-review-order-table .product-total {
+    text-align: right;
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+.woocommerce-checkout-review-order-table .order-total th,
+.woocommerce-checkout-review-order-table .order-total td {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding-top: 1.5rem;
+    border-top: 2px solid #dee2e6;
+    color: var(--bs-primary);
+}
+
+.payment-icons {
+    background: #f8f9fa;
+}
+
+#payment {
+    background: transparent;
+}
+
+.wc_payment_methods {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.wc_payment_method {
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.2s;
+}
+
+.wc_payment_method:has(input:checked) {
+    border-color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.wc_payment_method label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    font-weight: 600;
+}
+
+.wc_payment_method input[type="radio"] {
+    margin-right: 0.75rem;
+    width: 20px;
+    height: 20px;
+}
+
+.payment_box {
+    background: #f8f9fa;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+#place_order {
+    width: 100%;
+    background-color: var(--bs-primary) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 1rem 2rem !important;
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#place_order:hover {
+    background-color: var(--bs-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.woocommerce-terms-and-conditions-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.woocommerce-privacy-policy-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Mobile order summary toggle */
+.mobile-order-summary {
+    margin-bottom: 2rem;
+}
+
+.mobile-order-summary .btn {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .woocommerce-checkout .col-lg-5 .card {
+        position: static !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .woocommerce-checkout-review-order-table {
+        font-size: 0.875rem;
+    }
+    
+    .woocommerce-checkout-review-order-table th,
+    .woocommerce-checkout-review-order-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* ======================================
+   BLOG STYLES
+   ====================================== */
+
+/* Blog Archive */
+.page-header {
+    position: relative;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    line-height: 1.3;
+}
+
+/* Blog Cards */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-img-top img {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top img {
+    transform: scale(1.05);
+}
+
+.hover-primary {
+    transition: color 0.3s ease;
+}
+
+.hover-primary:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* Post Meta */
+.post-meta i {
+    margin-right: 0.25rem;
+}
+
+/* Post Categories & Tags */
+.post-categories .badge {
+    font-weight: 500;
+    padding: 0.35em 0.75em;
+    border: 1px solid #dee2e6;
+}
+
+.post-tags a {
+    display: inline-block;
+    padding: 0.35em 0.75em;
+    margin: 0 0.25rem 0.5rem 0;
+    background: var(--bs-light);
+    border-radius: 0.25rem;
+    color: var(--bs-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.post-tags a:hover {
+    background: var(--bs-primary);
+    color: #fff;
+}
+
+/* Single Post */
+.single-post .entry-title {
+    font-size: 2.5rem;
+    line-height: 1.3;
+}
+
+.single-post .entry-meta {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--bs-light);
+}
+
+.single-post .entry-content {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.single-post .entry-content p {
+    margin-bottom: 1.5rem;
+}
+
+.single-post .entry-content h2,
+.single-post .entry-content h3,
+.single-post .entry-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.single-post .entry-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.single-post .entry-content blockquote {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background: var(--bs-light);
+    border-left: 4px solid var(--bs-primary);
+    font-style: italic;
+}
+
+.single-post .entry-content ul,
+.single-post .entry-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.single-post .entry-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Author Box */
+.author-box {
+    border: 1px solid #e9ecef;
+}
+
+.author-avatar img {
+    border: 3px solid #fff;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* Post Navigation */
+.post-navigation .card {
+    transition: all 0.3s ease;
+}
+
+.post-navigation .card:hover {
+    transform: translateX(5px);
+}
+
+.post-navigation .col-md-6:first-child .card:hover {
+    transform: translateX(-5px);
+}
+
+/* Sidebar Widgets */
+.widget-area .widget {
+    animation: fadeInUp 0.6s ease;
+}
+
+.widget-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.widget-title i {
+    color: var(--bs-primary);
+    margin-right: 0.5rem;
+}
+
+.widget .list-unstyled li {
+    transition: all 0.3s ease;
+}
+
+.hover-bg-light:hover {
+    background: var(--bs-light) !important;
+}
+
+.tag-cloud a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.tag-cloud a:hover {
+    background: var(--bs-primary) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* Comments */
+.comments-wrapper {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--bs-light);
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-body {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--bs-light);
+    border-radius: 0.5rem;
+}
+
+.comment-author img {
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.comment-metadata {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.reply {
+    margin-top: 1rem;
+}
+
+.comment-reply-link {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    background: var(--bs-primary);
+    color: #fff !important;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.comment-reply-link:hover {
+    background: #0056b3;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 3rem;
+}
+
+.pagination .page-numbers {
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    color: var(--bs-dark);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-numbers:hover,
+.pagination .page-numbers.current {
+    background: var(--bs-primary);
+    color: #fff;
+    border-color: var(--bs-primary);
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .page-title,
+    .single-post .entry-title {
+        font-size: 1.75rem;
+    }
+    
+    .single-post .entry-content {
+        font-size: 1rem;
+    }
+    
+    .post-navigation .col-md-6:first-child .card:hover {
+        transform: translateX(5px);
+    }
+}
+
+/* Form Styling for Blog */
+.widget-area .search-form {
+    position: relative;
+}
+
+.widget-area .search-form input[type="search"],
+.widget-area .search-form input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    transition: all 0.3s ease;
+}
+
+.widget-area .search-form input[type="search"]:focus,
+.widget-area .search-form input[type="text"]:focus {
+    outline: none;
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(232, 139, 85, 0.25);
+}
+
+.widget-area .search-form button,
+.widget-area .search-form input[type="submit"] {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bs-primary);
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.widget-area .search-form button:hover,
+.widget-area .search-form input[type="submit"]:hover {
+    background: #d67856;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Comment Form Styling */
+.comments-wrapper {
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.05);
+}
+
+.comments-wrapper .comment-respond {
+    margin-top: 2rem;
+}
+
+.comments-wrapper .comment-form-comment label,
+.comments-wrapper .comment-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.comments-wrapper .comment-form input[type="text"],
+.comments-wrapper .comment-form input[type="email"],
+.comments-wrapper .comment-form input[type="url"],
+.comments-wrapper .comment-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.comments-wrapper .comment-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.comments-wrapper .comment-form input[type="text"]:focus,
+.comments-wrapper .comment-form input[type="email"]:focus,
+.comments-wrapper .comment-form input[type="url"]:focus,
+.comments-wrapper .comment-form textarea:focus {
+    outline: none;
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(232, 139, 85, 0.25);
+}
+
+.comments-wrapper .comment-form input::placeholder,
+.comments-wrapper .comment-form textarea::placeholder {
+    color: #adb5bd;
+}
+
+/* Comment Submit Button */
+.comments-wrapper .comment-form .form-submit {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.comments-wrapper .comment-form input[type="submit"],
+.comments-wrapper .comment-form button[type="submit"] {
+    background: var(--bs-primary);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.comments-wrapper .comment-form input[type="submit"]:hover,
+.comments-wrapper .comment-form button[type="submit"]:hover {
+    background: #d67856;
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(232, 139, 85, 0.3);
+}
+
+/* Comment List */
+.comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.comment-list .comment {
+    margin-bottom: 2rem;
+}
+
+.comment-body {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--bs-primary);
+}
+
+.comment-author {
+    margin-bottom: 0.5rem;
+}
+
+.comment-author .avatar {
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    float: left;
+}
+
+.comment-author .fn {
+    font-weight: 600;
+    font-style: normal;
+    color: #333;
+}
+
+.comment-metadata {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.comment-metadata a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.comment-metadata a:hover {
+    color: var(--bs-primary);
+}
+
+.comment-content {
+    clear: both;
+    padding-top: 0.5rem;
+}
+
+.comment-content p:last-child {
+    margin-bottom: 0;
+}
+
+.reply {
+    margin-top: 1rem;
+}
+
+.comment-reply-link {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    background: var(--bs-primary);
+    color: #fff !important;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.comment-reply-link:hover {
+    background: #d67856;
+    transform: translateY(-2px);
+}
+
+/* Newsletter Form */
+.widget-newsletter .newsletter-form input[type="email"] {
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.widget-newsletter .newsletter-form input[type="email"]::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+.widget-newsletter .newsletter-form input[type="email"]:focus {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+    outline: none;
+}
+
+.widget-newsletter .newsletter-form button {
+    background: #fff;
+    color: var(--bs-primary);
+}
+
+.widget-newsletter .newsletter-form button:hover {
+    background: #f8f9fa;
+}
+
+/* Logged In User Info */
+.comment-form .logged-in-as {
+    padding: 1rem;
+    background: #e7f3ff;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid #0d6efd;
+}
+
+.comment-form .logged-in-as a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.comment-form .logged-in-as a:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+/* Required Field Indicator */
+.comment-form .required {
+    color: #dc3545;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ======================================
+   CONTACT PAGE STYLES
+   ====================================== */
+
+/* Contact Form */
+.contact-page {
+    background: #f8f9fa;
+}
+
+.contact-form-wrapper {
+    background: #fff;
+}
+
+.contact-form .form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form .form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(232, 139, 85, 0.25);
+}
+
+.contact-form textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form .btn-primary {
+    background: var(--bs-primary);
+    border: none;
+    padding: 0.875rem 2.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.contact-form .btn-primary:hover {
+    background: #d67856;
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(232, 139, 85, 0.3);
+}
+
+/* Contact Info */
+.contact-info .card {
+    transition: transform 0.3s ease;
+}
+
+.contact-info .card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-info .info-item {
+    padding: 0.75rem 0;
+}
+
+.contact-info .info-item:not(:last-child) {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.contact-info .info-item i {
+    flex-shrink: 0;
+}
+
+.contact-info .info-item a {
+    color: var(--bs-primary);
+    transition: color 0.3s ease;
+}
+
+.contact-info .info-item a:hover {
+    color: #d67856;
+}
+
+/* Social Links */
+.social-links .btn {
+    transition: all 0.3s ease;
+}
+
+.social-links .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.15);
+}
+
+/* Map Wrapper */
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 450px;
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Alerts */
+.contact-page .alert {
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-page .alert i {
+    font-size: 1.25rem;
+}
+
+/* Why Choose Us Card */
+.contact-info .bg-primary {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #d67856 100%) !important;
+}
+
+.contact-info .bg-primary .bi-check-circle {
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .contact-info {
+        margin-top: 2rem;
+    }
+    
+    .map-wrapper {
+        height: 350px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .contact-form .btn-primary {
+        width: 100%;
+    }
+    
+    .map-wrapper {
+        height: 300px;
+    }
+}
