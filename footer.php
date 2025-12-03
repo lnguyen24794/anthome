@@ -15,13 +15,13 @@
                 <p class="small text-white-50"><strong>Anthomevn</strong> là đơn vị chuyên cung cấp các sản phẩm rèm cửa đẹp và các phụ kiện trang trí nhà cửa, văn phòng hàng đầu hiện nay.</p>
                 <div class="social-icons mt-3">
                     <?php if ( anthome_get_option( 'facebook_url' ) ) : ?>
-                        <a href="<?php echo esc_url( anthome_get_option( 'facebook_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle me-1" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="<?php echo esc_url( anthome_get_option( 'facebook_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-square me-1" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
                     <?php endif; ?>
                     <?php if ( anthome_get_option( 'youtube_url' ) ) : ?>
-                        <a href="<?php echo esc_url( anthome_get_option( 'youtube_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle me-1" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                        <a href="<?php echo esc_url( anthome_get_option( 'youtube_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-square me-1" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
                     <?php endif; ?>
                     <?php if ( anthome_get_option( 'instagram_url' ) ) : ?>
-                        <a href="<?php echo esc_url( anthome_get_option( 'instagram_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="<?php echo esc_url( anthome_get_option( 'instagram_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-square" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
                     <?php endif; ?>
                 </div>
             </div>
