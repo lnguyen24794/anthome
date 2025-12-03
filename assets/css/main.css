@@ -1644,8 +1644,8 @@ html {
 }
 
 .woocommerce-product-gallery .flex-control-nav li {
-    margin-right: 5px !important;
-    margin-bottom: 5px !important;
+    float: left !important;
+    clear: unset !important;
 }
 
 .related .products, .upsells .products {
@@ -1655,6 +1655,10 @@ html {
 
 .woocommerce .star-rating span::before {
     content: unset !important;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs {
+    display: flex !important;
 }
 
 /* ============================================================================
