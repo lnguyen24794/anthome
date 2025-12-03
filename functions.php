@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define Theme Constants
-define( 'ANTHOME_VERSION', '1.0.9' );
+define( 'ANTHOME_VERSION', '1.0.10' );
 define( 'ANTHOME_THEME_DIR', get_template_directory() );
 define( 'ANTHOME_THEME_URI', get_template_directory_uri() );
 
