@@ -1645,6 +1645,7 @@ html {
 
 .woocommerce-product-gallery .flex-control-nav li {
     margin-right: 5px !important;
+    margin-bottom: 5px !important;
 }
 
 .related .products, .upsells .products {
