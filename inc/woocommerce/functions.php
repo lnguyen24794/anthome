@@ -928,7 +928,7 @@ function anthome_shipping_info_tab_content() {
 	<div class="shipping-info-content">
 		<h3>Chính sách vận chuyển</h3>
 		<ul>
-			<li><strong>Miễn phí vận chuyển</strong> cho đơn hàng từ 500.000đ trong nội thành TP.HCM</li>
+			<li><strong>Miễn phí vận chuyển</strong> cho đơn hàng từ 500.000đ trong nội thành Hà Nội/li>
 			<li><strong>Giao hàng nhanh</strong> trong 1-2 ngày với đơn hàng nội thành</li>
 			<li><strong>Giao hàng toàn quốc</strong> 3-5 ngày làm việc</li>
 		</ul>
