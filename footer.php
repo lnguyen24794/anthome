@@ -12,7 +12,7 @@
             <!-- Col 1: Introduction -->
             <div class="col-lg-3 col-md-6 mb-2">
                 <h5 class="text-uppercase fw-bold mb-3 border-bottom pb-2 d-inline-block border-secondary">Giới thiệu</h5>
-                <p class="small text-white-50">Chuyên cung cấp các sản phẩm rèm cửa đẹp và các phụ kiện trang trí nhà cửa, văn phòng hàng đầu hiện nay.</p>
+                <p class="small text-white-50"><strong>Anthomevn</strong> là đơn vị chuyên cung cấp các sản phẩm rèm cửa đẹp và các phụ kiện trang trí nhà cửa, văn phòng hàng đầu hiện nay.</p>
                 <div class="social-icons mt-3">
                     <?php if ( anthome_get_option( 'facebook_url' ) ) : ?>
                         <a href="<?php echo esc_url( anthome_get_option( 'facebook_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle me-1" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
