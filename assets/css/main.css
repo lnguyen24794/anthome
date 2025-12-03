@@ -1653,7 +1653,7 @@ html {
 }
 
 .woocommerce .star-rating span::before {
-    content: "\f005" !important;
+    content: unset !important;
 }
 
 /* ============================================================================
