@@ -943,6 +943,10 @@ a {
     .breadcrumb-item.active {
         max-width: 200px;
     }
+
+    .woocommerce div.product .woocommerce-tabs ul.tabs li a {
+        font-size: 13px !important;
+    }
 }
 
 /* Animation on Hover */
@@ -1648,9 +1652,30 @@ html {
     clear: unset !important;
 }
 
+/* Make WooCommerce .products work with Bootstrap grid */
 .related .products, .upsells .products {
-    display: flex;
-    gap: 10px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-right: -0.75rem !important; /* Bootstrap gutter */
+    margin-left: -0.75rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+/* Ensure product items inside .products respect Bootstrap col classes */
+.related .products > li, 
+.upsells .products > li {
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Fix for when items are divs instead of li */
+.related .products > div, 
+.upsells .products > div {
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 .woocommerce .star-rating span::before {
