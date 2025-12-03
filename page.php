@@ -53,7 +53,7 @@ if ( $is_woocommerce_page ) {
 				</ol>	
 			</nav>
 		</div>
-		<div class="container py-5">
+		<div class="container">
 			<?php
 			while ( have_posts() ) :
 				the_post();
