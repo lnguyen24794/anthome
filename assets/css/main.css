@@ -1647,9 +1647,13 @@ html {
     margin-right: 5px !important;
 }
 
-.related .products {
+.related .products, .upsells .products {
     display: flex;
     gap: 10px !important;
+}
+
+.woocommerce .star-rating span::before {
+    content: "\f005" !important;
 }
 
 /* ============================================================================
