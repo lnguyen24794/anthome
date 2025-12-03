@@ -446,12 +446,12 @@ function anthome_woocommerce_result_count() {
 	
 	if ( $total <= $per_page ) {
 		$result = sprintf(
-			'<div class="woocommerce-result-count text-muted small">Hiển thị <strong>%d</strong> sản phẩm</div>',
+			'<div class="woocommerce-result-count text-muted small">Hiển thị <strong class="mx-1">%d</strong> sản phẩm</div>',
 			$total
 		);
 	} else {
 		$result = sprintf(
-			'<div class="woocommerce-result-count text-muted small">Hiển thị <strong>%d-%d</strong> trong tổng số <strong>%d</strong> sản phẩm</div>',
+			'<div class="woocommerce-result-count text-muted small">Hiển thị <strong class="mx-1">%d-%d</strong> trong tổng số <strong class="mx-1">%d</strong> sản phẩm</div>',
 			$first,
 			$last,
 			$total
