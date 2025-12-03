@@ -41,6 +41,18 @@ if ( $is_woocommerce_page ) {
 	// Standard page template
 	?>
 	<main id="main" class="site-main">
+		<div class="container pt-4">
+			<nav aria-label="breadcrumb" class="woocommerce-breadcrumb-wrapper mb-4">
+				<ol class="breadcrumb bg-light p-3 rounded-3 mb-0">
+					<li class="breadcrumb-item">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+					</li><i class="bi bi-chevron-right mx-2 text-muted small"></i>
+					<li class="breadcrumb-item active" aria-current="page">
+						<?php the_title(); ?>
+					</li>
+				</ol>	
+			</nav>
+		</div>
 		<div class="container py-5">
 			<?php
 			while ( have_posts() ) :

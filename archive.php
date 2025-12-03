@@ -9,24 +9,17 @@ get_header();
 ?>
 
 <main id="main" class="site-main">
-	<!-- Breadcrumb -->
-	<div class="bg-light py-3 mb-5">
-		<div class="container">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb mb-0">
-					<li class="breadcrumb-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a></li>
-					<?php if ( is_category() ) : ?>
-						<li class="breadcrumb-item active" aria-current="page"><?php single_cat_title(); ?></li>
-					<?php elseif ( is_tag() ) : ?>
-						<li class="breadcrumb-item active" aria-current="page">Tag: <?php single_tag_title(); ?></li>
-					<?php elseif ( is_date() ) : ?>
-						<li class="breadcrumb-item active" aria-current="page"><?php echo get_the_date( 'F Y' ); ?></li>
-					<?php else : ?>
-						<li class="breadcrumb-item active" aria-current="page">Tin tức</li>
-					<?php endif; ?>
-				</ol>
-			</nav>
-		</div>
+	<div class="container pt-4">
+		<nav aria-label="breadcrumb" class="woocommerce-breadcrumb-wrapper mb-4">
+			<ol class="breadcrumb bg-light p-3 rounded-3 mb-0">
+				<li class="breadcrumb-item">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				</li><i class="bi bi-chevron-right mx-2 text-muted small"></i>
+				<li class="breadcrumb-item active" aria-current="page">
+					<?php single_cat_title(); ?>
+				</li>
+			</ol>
+		</nav>
 	</div>
 
 	<div class="container">

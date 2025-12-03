@@ -10,7 +10,19 @@ get_header();
 ?>
 
 <main id="main" class="site-main contact-page">
-	<div class="container py-5">
+	<div class="container pt-4">
+		<nav aria-label="breadcrumb" class="woocommerce-breadcrumb-wrapper mb-4">
+			<ol class="breadcrumb bg-light p-3 rounded-3 mb-0">
+				<li class="breadcrumb-item">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				</li><i class="bi bi-chevron-right mx-2 text-muted small"></i>
+				<li class="breadcrumb-item active" aria-current="page">
+					<?php the_title(); ?>
+				</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center mb-5">
 				<h1 class="page-title font-playfair fw-bold"><?php the_title(); ?></h1>

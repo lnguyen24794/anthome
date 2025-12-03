@@ -9,22 +9,21 @@ get_header();
 ?>
 
 <main id="main" class="site-main">
-	<!-- Breadcrumb -->
-	<div class="bg-light py-3 mb-5">
-		<div class="container">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb mb-0">
-					<li class="breadcrumb-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a></li>
-					<?php
-					$categories = get_the_category();
-					if ( ! empty( $categories ) ) {
-						echo '<li class="breadcrumb-item"><a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a></li>';
-					}
-					?>
-					<li class="breadcrumb-item active" aria-current="page"><?php echo wp_trim_words( get_the_title(), 8 ); ?></li>
-				</ol>
-			</nav>
-		</div>
+	<div class="container pt-4">
+		<nav aria-label="breadcrumb" class="woocommerce-breadcrumb-wrapper mb-4">
+			<ol class="breadcrumb mb-0">
+				<li class="breadcrumb-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a></li>
+				<i class="bi bi-chevron-right mx-2 text-muted small"></i>
+				<?php
+				$categories = get_the_category();
+				if ( ! empty( $categories ) ) {
+					echo '<li class="breadcrumb-item"><a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a></li>';
+				}
+				?>
+				<i class="bi bi-chevron-right mx-2 text-muted small"></i>
+				<li class="breadcrumb-item active" aria-current="page"><?php echo wp_trim_words( get_the_title(), 8 ); ?></li>
+			</ol>
+		</nav>
 	</div>
 
 	<div class="container py-5">
