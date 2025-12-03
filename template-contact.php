@@ -10,18 +10,6 @@ get_header();
 ?>
 
 <main id="main" class="site-main contact-page">
-	<!-- Breadcrumb -->
-	<div class="bg-light py-3 mb-5">
-		<div class="container">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb mb-0">
-					<li class="breadcrumb-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a></li>
-					<li class="breadcrumb-item active" aria-current="page"><?php the_title(); ?></li>
-				</ol>
-			</nav>
-		</div>
-	</div>
-
 	<div class="container py-5">
 		<div class="row">
 			<div class="col-12 text-center mb-5">
