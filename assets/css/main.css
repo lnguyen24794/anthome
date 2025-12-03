@@ -1639,7 +1639,6 @@ html {
 
 .woocommerce-product-gallery .flex-viewport {
     max-height: 500px !important;
-    min-height: 500px !important;
 }
 
 .woocommerce-product-gallery .flex-control-nav {
