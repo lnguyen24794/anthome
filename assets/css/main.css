@@ -4,6 +4,10 @@
     --accent-color: #d4a373;
     --light-bg: #f8f9fa;
     --text-color: #333;
+    --bs-primary: var(--primary-color);
+    --bs-primary-rgb: 212, 163, 115;
+    --bs-secondary: #000;
+    --bs-secondary-rgb: 0, 0, 0;
 }
 
 body {
@@ -2938,4 +2942,13 @@ html {
     .map-wrapper {
         height: 300px;
     }
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
 }
