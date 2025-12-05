@@ -65,7 +65,7 @@
                              <select class="form-select bg-light border-end-0 text-muted" 
                                      id="product-search-category"
                                      name="product_cat"
-                                     style="max-width: 160px; font-size: 0.9rem;">
+                                     style="max-width: 160px; font-size: 0.9rem !important;">
                                 <option value="">Chọn danh mục ...</option>
                                 <?php 
                                 $cats = get_terms(array(
