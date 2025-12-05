@@ -3172,3 +3172,7 @@ html {
     align-items: center;
     justify-content: center;
 }
+
+.shop_table tfoot td {
+    text-align: right !important;
+}
