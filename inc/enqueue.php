@@ -37,6 +37,20 @@ function anthome_scripts() {
 
 	// Theme Main JS
 	wp_enqueue_script( 'anthome-main-js', get_template_directory_uri() . '/assets/js/main.js', array('jquery', 'anthome-bootstrap-js'), ANTHOME_VERSION, true );
+	
+	// Product Search AJAX (for WooCommerce)
+	if ( anthome_is_woocommerce_activated() ) {
+		wp_enqueue_script( 'anthome-product-search', get_template_directory_uri() . '/assets/js/product-search.js', array('jquery'), ANTHOME_VERSION, true );
+		
+		// Add to Cart AJAX Handler
+		wp_enqueue_script( 'anthome-add-to-cart', get_template_directory_uri() . '/assets/js/add-to-cart.js', array('jquery'), ANTHOME_VERSION, true );
+		
+		// Pass WooCommerce AJAX URL to scripts
+		wp_localize_script( 'anthome-add-to-cart', 'anthome_ajax', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'wc_ajax_url' => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+		));
+	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

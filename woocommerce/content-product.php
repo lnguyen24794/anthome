@@ -23,8 +23,8 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 $thumbnail_size = isset( $thumbnail_size ) ? $thumbnail_size : 'woocommerce_thumbnail';
 ?>
 <div <?php wc_product_class( 'col-lg-3 col-md-6', $product ); ?>>
-    <a href="<?php the_permalink(); ?>" class="text-decoration-none d-block">
-        <div class="card product-card h-100 border-0 shadow-sm">
+    <div class="card product-card h-100 border-0 shadow-sm">
+        <a href="<?php the_permalink(); ?>" class="text-decoration-none">
             <div class="card-img-wrapper position-relative overflow-hidden">
                 <?php 
                 /**
@@ -40,10 +40,27 @@ $thumbnail_size = isset( $thumbnail_size ) ? $thumbnail_size : 'woocommerce_thum
                 
                 // Alternative: Use custom function with specific size
                 // echo anthome_product_thumbnail( $product, $thumbnail_size );
+                
+                // Display rating badge if product has reviews
+                $rating_count = $product->get_rating_count();
+                $average_rating = $product->get_average_rating();
+                if ( $rating_count > 0 && $average_rating > 0 ) {
+                    ?>
+                    <div class="product-rating-badge position-absolute top-0 start-0 m-2">
+                        <div class="badge bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 40px; height: 40px; font-size: 14px; font-weight: bold;"
+                             title="<?php printf( esc_attr__( 'Đánh giá %s trên 5', 'anthome' ), $average_rating ); ?>">
+                            <?php echo number_format( $average_rating, 1 ); ?>★
+                        </div>
+                    </div>
+                    <?php
+                }
                 ?>
             </div>
+        </a>
         
-            <div class="card-body text-center">
+        <div class="card-body text-center d-flex flex-column">
+            <a href="<?php the_permalink(); ?>" class="text-decoration-none">
                 <?php
                 /**
                  * Hook: woocommerce_shop_loop_item_title.
@@ -60,8 +77,20 @@ $thumbnail_size = isset( $thumbnail_size ) ? $thumbnail_size : 'woocommerce_thum
                  */
                 do_action( 'woocommerce_after_shop_loop_item_title' );
                 ?>
+            </a>
+            
+            <!-- Add to Cart Button (Inside card-body, below price) -->
+            <div class="product-card-actions mt-auto pt-2">
+                <?php
+                /**
+                 * Hook: woocommerce_after_shop_loop_item.
+                 *
+                 * @hooked woocommerce_template_loop_add_to_cart - 10
+                 */
+                do_action( 'woocommerce_after_shop_loop_item' );
+                ?>
             </div>
         </div>
-    </a>
+    </div>
 </div>
 

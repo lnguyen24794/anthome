@@ -1434,3 +1434,119 @@ function anthome_thankyou_page_styles() {
 		' );
 	}
 }
+
+/**
+ * AJAX Add to Cart Handler
+ */
+function anthome_ajax_add_to_cart() {
+	if ( ! isset( $_POST['product_id'] ) ) {
+		wp_send_json_error( array( 'message' => 'Product ID is required' ) );
+	}
+	
+	$product_id = absint( $_POST['product_id'] );
+	$quantity = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
+	$variation_id = isset( $_POST['variation_id'] ) ? absint( $_POST['variation_id'] ) : 0;
+	$variation = isset( $_POST['variation'] ) ? $_POST['variation'] : array();
+	
+	// Get the product
+	$product = wc_get_product( $product_id );
+	
+	if ( ! $product ) {
+		wp_send_json_error( array( 'message' => 'Product not found' ) );
+	}
+	
+	// Check if product is purchasable
+	if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
+		wp_send_json_error( array( 
+			'message' => 'Product is not available',
+			'product_url' => $product->get_permalink()
+		) );
+	}
+	
+	// Add to cart
+	$cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
+	
+	if ( ! $cart_item_key ) {
+		wp_send_json_error( array( 'message' => 'Could not add product to cart' ) );
+	}
+	
+	// Get cart fragments
+	WC_AJAX::get_refreshed_fragments();
+}
+add_action( 'wp_ajax_woocommerce_ajax_add_to_cart', 'anthome_ajax_add_to_cart' );
+add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'anthome_ajax_add_to_cart' );
+
+/**
+ * Add AJAX add to cart class to buttons
+ */
+function anthome_add_ajax_add_to_cart_class( $args ) {
+	$args['class'] = str_replace( 'add_to_cart_button', 'add_to_cart_button ajax_add_to_cart', $args['class'] );
+	return $args;
+}
+add_filter( 'woocommerce_loop_add_to_cart_args', 'anthome_add_ajax_add_to_cart_class', 10, 1 );
+
+/**
+ * Custom add to cart link for products without price or variable products (loop)
+ * Replace "Đọc tiếp" with "Liên hệ" and change URL to tel: link
+ */
+function anthome_variable_product_call_link( $link, $product ) {
+	// Check if it's a variable product OR a simple product without add to cart button
+	if ( $product->is_type( 'variable' ) || ( $product->is_type( 'simple' ) && ! $product->is_purchasable() ) ) {
+		$phone = anthome_get_option( 'phone', '123123123' );
+		$phone_clean = preg_replace( '/[^0-9+]/', '', $phone );
+		
+		$link = sprintf(
+			'<a href="tel:%s" class="button product_type_contact" rel="nofollow">%s</a>',
+			esc_attr( $phone_clean ),
+			esc_html__( 'Liên hệ', 'anthome' )
+		);
+	}
+	return $link;
+}
+add_filter( 'woocommerce_loop_add_to_cart_link', 'anthome_variable_product_call_link', 10, 2 );
+
+/**
+ * Replace add to cart button with contact button for products without price
+ */
+function anthome_single_product_contact_button() {
+	global $product;
+	
+	if ( ! $product ) {
+		return;
+	}
+	
+	// Check if product doesn't have price or is variable product
+	$needs_contact = false;
+	
+	if ( $product->is_type( 'variable' ) ) {
+		$needs_contact = true;
+		// Remove default add to cart form for variable products
+		remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
+	} elseif ( $product->is_type( 'simple' ) && ! $product->is_purchasable() ) {
+		$needs_contact = true;
+		// Remove default add to cart button for simple products without price
+		remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
+	}
+	
+	if ( $needs_contact ) {
+		// Add contact button
+		add_action( 'woocommerce_single_product_summary', 'anthome_display_single_contact_button', 30 );
+	}
+}
+add_action( 'woocommerce_before_single_product', 'anthome_single_product_contact_button' );
+
+/**
+ * Display contact button on single product page
+ */
+function anthome_display_single_contact_button() {
+	$phone = anthome_get_option( 'phone', '123123123' );
+	$phone_clean = preg_replace( '/[^0-9+]/', '', $phone );
+	?>
+	<div class="contact-button-wrapper mt-3">
+		<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="button btn btn-success btn-lg w-100 contact-button">
+			<i class="bi bi-telephone-fill me-2"></i>
+			<?php echo esc_html__( 'Liên hệ: ', 'anthome' ) . esc_html( $phone ); ?>
+		</a>
+	</div>
+	<?php
+}
