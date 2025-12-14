@@ -815,32 +815,75 @@ footer {
     z-index: 1;
 }
 
-/* Homepage Product Slider */
-#homepageProductSlider {
+/* Homepage Product Slider - Desktop & Mobile */
+#homepageProductSliderDesktop,
+#homepageProductSliderMobile {
     background: #fff;
     border-radius: 0.5rem;
     overflow: hidden;
 }
 
-#homepageProductSlider .carousel-inner {
+#homepageProductSliderDesktop .carousel-inner {
     padding: 1rem;
 }
 
-#homepageProductSlider .carousel-item {
+#homepageProductSliderDesktop .carousel-item {
     min-height: 100%;
 }
 
-#homepageProductSlider .product-card {
+#homepageProductSliderDesktop .product-card,
+#homepageProductSliderMobile .product-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#homepageProductSlider .product-card:hover {
+#homepageProductSliderDesktop .product-card:hover,
+#homepageProductSliderMobile .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-#homepageProductSlider .carousel-control-prev,
-#homepageProductSlider .carousel-control-next {
+/* Product Name Overlay on Image */
+#homepageProductSliderDesktop .product-name-overlay,
+#homepageProductSliderMobile .product-name-overlay {
+    z-index: 2;
+}
+
+#homepageProductSliderDesktop .product-name-overlay-bg,
+#homepageProductSliderMobile .product-name-overlay-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+    border-radius: 0;
+}
+
+#homepageProductSliderDesktop .product-name-overlay-text,
+#homepageProductSliderMobile .product-name-overlay-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#homepageProductSliderDesktop .card-img-wrapper,
+#homepageProductSliderMobile .card-img-wrapper {
+    min-height: 200px;
+}
+
+#homepageProductSliderDesktop .card-img-wrapper img,
+#homepageProductSliderMobile .card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Desktop Slider Controls */
+#homepageProductSliderDesktop .carousel-control-prev,
+#homepageProductSliderDesktop .carousel-control-next {
     width: 40px;
     height: 40px;
     top: 50%;
@@ -850,24 +893,25 @@ footer {
     opacity: 0.8;
 }
 
-#homepageProductSlider .carousel-control-prev:hover,
-#homepageProductSlider .carousel-control-next:hover {
+#homepageProductSliderDesktop .carousel-control-prev:hover,
+#homepageProductSliderDesktop .carousel-control-next:hover {
     opacity: 1;
 }
 
-#homepageProductSlider .carousel-control-prev {
+#homepageProductSliderDesktop .carousel-control-prev {
     left: 10px;
 }
 
-#homepageProductSlider .carousel-control-next {
+#homepageProductSliderDesktop .carousel-control-next {
     right: 10px;
 }
 
-#homepageProductSlider .carousel-indicators {
+#homepageProductSliderDesktop .carousel-indicators {
     margin-bottom: 0.5rem;
 }
 
-#homepageProductSlider .carousel-indicators button {
+#homepageProductSliderDesktop .carousel-indicators button,
+#homepageProductSliderMobile .carousel-indicators button {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -875,22 +919,57 @@ footer {
     border: none;
 }
 
-#homepageProductSlider .carousel-indicators button.active {
+#homepageProductSliderDesktop .carousel-indicators button.active,
+#homepageProductSliderMobile .carousel-indicators button.active {
     background-color: var(--bs-primary, #0d6efd);
 }
 
-@media (max-width: 768px) {
-    #homepageProductSlider {
-        height: auto !important;
-    }
-    
-    #homepageProductSlider .carousel-item .row {
-        height: auto !important;
-    }
-    
-    #homepageProductSlider .carousel-item .col-4 {
-        margin-bottom: 1rem;
-    }
+/* Mobile Slider Styles */
+#homepageProductSliderMobile {
+    height: auto;
+}
+
+#homepageProductSliderMobile .carousel-inner {
+    padding: 0.5rem;
+}
+
+#homepageProductSliderMobile .carousel-item {
+    padding: 0.5rem 0;
+}
+
+#homepageProductSliderMobile .product-name-overlay {
+    padding: 0.75rem !important;
+}
+
+#homepageProductSliderMobile .product-name-overlay-text {
+    font-size: 0.9rem !important;
+}
+
+#homepageProductSliderMobile .card-img-wrapper {
+    min-height: 250px;
+}
+
+#homepageProductSliderMobile .carousel-control-prev,
+#homepageProductSliderMobile .carousel-control-next {
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    opacity: 0.9;
+}
+
+#homepageProductSliderMobile .carousel-control-prev {
+    left: 5px;
+}
+
+#homepageProductSliderMobile .carousel-control-next {
+    right: 5px;
+}
+
+#homepageProductSliderMobile .carousel-indicators {
+    margin-bottom: 0.25rem;
 }
 
 .bg-primary { 

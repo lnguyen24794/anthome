@@ -62,74 +62,89 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
                             }
                             wp_reset_postdata();
                             
-                            // Split into slides of 3
-                            $slides = array_chunk( $all_products, 3 );
+                            // Split into slides: Desktop (3 per slide), Mobile (1 per slide)
+                            $desktop_slides = array_chunk( $all_products, 3 );
+                            $mobile_slides = array_chunk( $all_products, 1 );
                             
-                            if ( ! empty( $slides ) ) {
+                            if ( ! empty( $all_products ) ) {
+                                // Helper function to render product card
+                                if ( ! function_exists( 'anthome_render_slider_product_card' ) ) {
+                                    function anthome_render_slider_product_card( $product_post, $col_class = 'col-4' ) {
+                                    global $post, $product;
+                                    $post = $product_post;
+                                    setup_postdata( $post );
+                                    $product = wc_get_product( $post->ID );
+                                    
+                                    if ( empty( $product ) || ! $product->is_visible() ) {
+                                        return;
+                                    }
+                                    
+                                    $rating_count = $product->get_rating_count();
+                                    $average_rating = $product->get_average_rating();
+                                    ?>
+                                    <div class="<?php echo esc_attr( $col_class ); ?>">
+                                        <div class="card product-card h-100 border-0 shadow-sm">
+                                            <a href="<?php the_permalink(); ?>" class="text-decoration-none">
+                                                <div class="card-img-wrapper position-relative overflow-hidden">
+                                                    <?php 
+                                                    do_action( 'woocommerce_before_shop_loop_item_title' ); 
+                                                    
+                                                    if ( $rating_count > 0 && $average_rating > 0 ) {
+                                                        ?>
+                                                        <div class="product-rating-badge position-absolute top-0 start-0 m-2">
+                                                            <div class="badge bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" 
+                                                                 style="width: 40px; height: 40px; font-size: 14px; font-weight: bold;"
+                                                                 title="<?php printf( esc_attr__( 'Đánh giá %s trên 5', 'anthome' ), $average_rating ); ?>">
+                                                                <?php echo number_format( $average_rating, 1 ); ?>★
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    
+                                                    // Product name overlay on image
+                                                    ?>
+                                                    <div class="product-name-overlay position-absolute bottom-0 start-0 end-0 p-3">
+                                                        <div class="product-name-overlay-bg"></div>
+                                                        <h6 class="product-name-overlay-text text-white fw-bold mb-0 position-relative" style="font-size: 0.95rem; line-height: 1.3;">
+                                                            <?php echo esc_html( get_the_title() ); ?>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            <div class="card-body text-center d-flex flex-column">
+                                                <a href="<?php the_permalink(); ?>" class="text-decoration-none">
+                                                    <?php
+                                                    do_action( 'woocommerce_shop_loop_item_title' );
+                                                    do_action( 'woocommerce_after_shop_loop_item_title' );
+                                                    ?>
+                                                </a>
+                                                
+                                                <div class="product-card-actions mt-auto pt-2">
+                                                    <?php
+                                                    do_action( 'woocommerce_after_shop_loop_item' );
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    }
+                                }
                                 ?>
-                                <div id="homepageProductSlider" class="carousel slide" data-bs-ride="carousel" style="height: 369px;">
+                                
+                                <!-- Desktop Slider (3 products per slide) -->
+                                <div id="homepageProductSliderDesktop" class="carousel slide d-none d-lg-block" data-bs-ride="carousel" style="height: 369px;">
                                     <div class="carousel-inner h-100">
                                         <?php
-                                        foreach ( $slides as $slide_index => $slide_products ) {
+                                        foreach ( $desktop_slides as $slide_index => $slide_products ) {
                                             $is_active = $slide_index === 0 ? 'active' : '';
                                             ?>
                                             <div class="carousel-item <?php echo esc_attr( $is_active ); ?> h-100">
                                                 <div class="row g-3 h-100 p-3">
                                                     <?php
                                                     foreach ( $slide_products as $product_post ) {
-                                                        global $post, $product;
-                                                        $post = $product_post;
-                                                        setup_postdata( $post );
-                                                        $product = wc_get_product( $post->ID );
-                                                        $thumbnail_size = 'woocommerce_thumbnail';
-                                                        ?>
-                                                        <div class="col-4">
-                                                            <?php
-                                                            // Custom product card for slider
-                                                            if ( empty( $product ) || ! $product->is_visible() ) {
-                                                                continue;
-                                                            }
-                                                            ?>
-                                                            <div class="card product-card h-100 border-0 shadow-sm">
-                                                                <a href="<?php the_permalink(); ?>" class="text-decoration-none">
-                                                                    <div class="card-img-wrapper position-relative overflow-hidden">
-                                                                        <?php 
-                                                                        do_action( 'woocommerce_before_shop_loop_item_title' ); 
-                                                                        
-                                                                        $rating_count = $product->get_rating_count();
-                                                                        $average_rating = $product->get_average_rating();
-                                                                        if ( $rating_count > 0 && $average_rating > 0 ) {
-                                                                            ?>
-                                                                            <div class="product-rating-badge position-absolute top-0 start-0 m-2">
-                                                                                <div class="badge bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" 
-                                                                                     style="width: 40px; height: 40px; font-size: 14px; font-weight: bold;"
-                                                                                     title="<?php printf( esc_attr__( 'Đánh giá %s trên 5', 'anthome' ), $average_rating ); ?>">
-                                                                                    <?php echo number_format( $average_rating, 1 ); ?>★
-                                                                                </div>
-                                                                            </div>
-                                                                            <?php
-                                                                        }
-                                                                        ?>
-                                                                    </div>
-                                                                </a>
-                                                                
-                                                                <div class="card-body text-center d-flex flex-column">
-                                                                    <a href="<?php the_permalink(); ?>" class="text-decoration-none">
-                                                                        <?php
-                                                                        do_action( 'woocommerce_shop_loop_item_title' );
-                                                                        do_action( 'woocommerce_after_shop_loop_item_title' );
-                                                                        ?>
-                                                                    </a>
-                                                                    
-                                                                    <div class="product-card-actions mt-auto pt-2">
-                                                                        <?php
-                                                                        do_action( 'woocommerce_after_shop_loop_item' );
-                                                                        ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
+                                                        anthome_render_slider_product_card( $product_post, 'col-4' );
                                                     }
                                                     wp_reset_postdata();
                                                     ?>
@@ -140,22 +155,67 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
                                         ?>
                                     </div>
                                     
-                                    <?php if ( count( $slides ) > 1 ) : ?>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#homepageProductSlider" data-bs-slide="prev">
+                                    <?php if ( count( $desktop_slides ) > 1 ) : ?>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#homepageProductSliderDesktop" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#homepageProductSlider" data-bs-slide="next">
+                                        <button class="carousel-control-next" type="button" data-bs-target="#homepageProductSliderDesktop" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                         
                                         <div class="carousel-indicators">
                                             <?php
-                                            for ( $i = 0; $i < count( $slides ); $i++ ) {
+                                            for ( $i = 0; $i < count( $desktop_slides ); $i++ ) {
                                                 $is_active = $i === 0 ? 'active' : '';
                                                 ?>
-                                                <button type="button" data-bs-target="#homepageProductSlider" data-bs-slide-to="<?php echo esc_attr( $i ); ?>" class="<?php echo esc_attr( $is_active ); ?>" aria-current="<?php echo $i === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?php echo esc_attr( $i + 1 ); ?>"></button>
+                                                <button type="button" data-bs-target="#homepageProductSliderDesktop" data-bs-slide-to="<?php echo esc_attr( $i ); ?>" class="<?php echo esc_attr( $is_active ); ?>" aria-current="<?php echo $i === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?php echo esc_attr( $i + 1 ); ?>"></button>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <!-- Mobile Slider (1 product per slide) -->
+                                <div id="homepageProductSliderMobile" class="carousel slide d-lg-none" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <?php
+                                        foreach ( $mobile_slides as $slide_index => $slide_products ) {
+                                            $is_active = $slide_index === 0 ? 'active' : '';
+                                            ?>
+                                            <div class="carousel-item <?php echo esc_attr( $is_active ); ?>">
+                                                <div class="row g-3 p-3">
+                                                    <?php
+                                                    foreach ( $slide_products as $product_post ) {
+                                                        anthome_render_slider_product_card( $product_post, 'col-12' );
+                                                    }
+                                                    wp_reset_postdata();
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    
+                                    <?php if ( count( $mobile_slides ) > 1 ) : ?>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#homepageProductSliderMobile" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#homepageProductSliderMobile" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                        
+                                        <div class="carousel-indicators">
+                                            <?php
+                                            for ( $i = 0; $i < count( $mobile_slides ); $i++ ) {
+                                                $is_active = $i === 0 ? 'active' : '';
+                                                ?>
+                                                <button type="button" data-bs-target="#homepageProductSliderMobile" data-bs-slide-to="<?php echo esc_attr( $i ); ?>" class="<?php echo esc_attr( $is_active ); ?>" aria-current="<?php echo $i === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?php echo esc_attr( $i + 1 ); ?>"></button>
                                                 <?php
                                             }
                                             ?>
