@@ -111,21 +111,6 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
                                                     </div>
                                                 </div>
                                             </a>
-                                            
-                                            <div class="card-body text-center d-flex flex-column">
-                                                <a href="<?php the_permalink(); ?>" class="text-decoration-none">
-                                                    <?php
-                                                    do_action( 'woocommerce_shop_loop_item_title' );
-                                                    do_action( 'woocommerce_after_shop_loop_item_title' );
-                                                    ?>
-                                                </a>
-                                                
-                                                <div class="product-card-actions mt-auto pt-2">
-                                                    <?php
-                                                    do_action( 'woocommerce_after_shop_loop_item' );
-                                                    ?>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <?php
