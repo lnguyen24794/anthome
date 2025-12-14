@@ -3100,6 +3100,32 @@ html {
     text-decoration: none;
 }
 
+/* Zalo Contact Button - Blue */
+.product-card-actions .btn-zalo-contact {
+    background-color: #0068ff !important;
+}
+
+.product-card-actions .btn-zalo-contact:hover {
+    background-color: #0052cc !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 104, 255, 0.4);
+    color: #fff !important;
+    text-decoration: none;
+}
+
+/* Phone Contact Button - Green */
+.product-card-actions .btn-phone-contact {
+    background-color: #198754 !important;
+}
+
+.product-card-actions .btn-phone-contact:hover {
+    background-color: #157347 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+    color: #fff !important;
+    text-decoration: none;
+}
+
 .product-card-actions .product_type_variable:active,
 .product-card-actions .product_type_contact:active,
 .contact-button-wrapper .contact-button:active {
@@ -3126,12 +3152,9 @@ html {
     display: none !important;
 }
 
-/* Single Product Add to Cart Form - Align Input and Button Height */
+/* Hide add to cart form on single product page */
 .single-product form.cart {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    display: none !important;
 }
 
 .single-product form.cart .quantity {

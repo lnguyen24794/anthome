@@ -1436,77 +1436,57 @@ function anthome_thankyou_page_styles() {
 }
 
 /**
- * AJAX Add to Cart Handler
+ * AJAX Add to Cart Handler - DISABLED
+ * No longer needed as website uses contact-only mode
  */
-function anthome_ajax_add_to_cart() {
-	if ( ! isset( $_POST['product_id'] ) ) {
-		wp_send_json_error( array( 'message' => 'Product ID is required' ) );
-	}
-	
-	$product_id = absint( $_POST['product_id'] );
-	$quantity = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
-	$variation_id = isset( $_POST['variation_id'] ) ? absint( $_POST['variation_id'] ) : 0;
-	$variation = isset( $_POST['variation'] ) ? $_POST['variation'] : array();
-	
-	// Get the product
-	$product = wc_get_product( $product_id );
-	
-	if ( ! $product ) {
-		wp_send_json_error( array( 'message' => 'Product not found' ) );
-	}
-	
-	// Check if product is purchasable
-	if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
-		wp_send_json_error( array( 
-			'message' => 'Product is not available',
-			'product_url' => $product->get_permalink()
-		) );
-	}
-	
-	// Add to cart
-	$cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
-	
-	if ( ! $cart_item_key ) {
-		wp_send_json_error( array( 'message' => 'Could not add product to cart' ) );
-	}
-	
-	// Get cart fragments
-	WC_AJAX::get_refreshed_fragments();
-}
-add_action( 'wp_ajax_woocommerce_ajax_add_to_cart', 'anthome_ajax_add_to_cart' );
-add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'anthome_ajax_add_to_cart' );
+// Removed: anthome_ajax_add_to_cart function and actions
 
 /**
- * Add AJAX add to cart class to buttons
+ * Disable AJAX add to cart - no longer needed
+ * Removed: anthome_add_ajax_add_to_cart_class filter
  */
-function anthome_add_ajax_add_to_cart_class( $args ) {
-	$args['class'] = str_replace( 'add_to_cart_button', 'add_to_cart_button ajax_add_to_cart', $args['class'] );
-	return $args;
-}
-add_filter( 'woocommerce_loop_add_to_cart_args', 'anthome_add_ajax_add_to_cart_class', 10, 1 );
 
 /**
- * Custom add to cart link for products without price or variable products (loop)
- * Replace "Đọc tiếp" with "Liên hệ" and change URL to tel: link
+ * Replace ALL add to cart buttons with contact link (Zalo or Phone)
+ * Apply to ALL products in loop
  */
-function anthome_variable_product_call_link( $link, $product ) {
-	// Check if it's a variable product OR a simple product without add to cart button
-	if ( $product->is_type( 'variable' ) || ( $product->is_type( 'simple' ) && ! $product->is_purchasable() ) ) {
-		$phone = anthome_get_option( 'phone', '123123123' );
-		$phone_clean = preg_replace( '/[^0-9+]/', '', $phone );
-		
-		$link = sprintf(
-			'<a href="tel:%s" class="button product_type_contact" rel="nofollow">%s</a>',
-			esc_attr( $phone_clean ),
-			esc_html__( 'Liên hệ', 'anthome' )
-		);
+function anthome_replace_all_add_to_cart_with_contact( $link, $product ) {
+	// Get contact link (prefer Zalo, fallback to phone)
+	$contact_url = anthome_get_contact_link( 'url' );
+	$phone_display = anthome_get_contact_link( 'phone_display' );
+	$zalo_url = anthome_get_contact_link( 'zalo' );
+	
+	if ( ! $contact_url ) {
+		return ''; // Hide button if no contact info
 	}
+	
+	// Determine button text and icon
+	if ( $zalo_url ) {
+		$button_text = 'Liên hệ Zalo';
+		$button_class = 'button product_type_contact btn-zalo-contact';
+		$icon = '<i class="bi bi-chat-dots me-2"></i>';
+	} else {
+		$button_text = 'Liên hệ: ' . $phone_display;
+		$button_class = 'button product_type_contact btn-phone-contact';
+		$icon = '<i class="bi bi-telephone-fill me-2"></i>';
+	}
+	
+	$link = sprintf(
+		'<a href="%s" class="%s" rel="nofollow" target="%s">%s%s</a>',
+		esc_url( $contact_url ),
+		esc_attr( $button_class ),
+		$zalo_url ? '_blank' : '_self',
+		$icon,
+		esc_html( $button_text )
+	);
+	
 	return $link;
 }
-add_filter( 'woocommerce_loop_add_to_cart_link', 'anthome_variable_product_call_link', 10, 2 );
+add_filter( 'woocommerce_loop_add_to_cart_link', 'anthome_replace_all_add_to_cart_with_contact', 10, 2 );
 
 /**
- * Replace add to cart button with contact button for products without price
+ * Replace ALL add to cart buttons with contact button for ALL products
+ * Remove default add to cart for all product types
  */
 function anthome_single_product_contact_button() {
 	global $product;
@@ -1515,38 +1495,79 @@ function anthome_single_product_contact_button() {
 		return;
 	}
 	
-	// Check if product doesn't have price or is variable product
-	$needs_contact = false;
+	// Remove ALL default add to cart buttons/forms
+	remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
+	remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
+	remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
+	remove_action( 'woocommerce_external_add_to_cart', 'woocommerce_external_add_to_cart', 30 );
+	remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
 	
-	if ( $product->is_type( 'variable' ) ) {
-		$needs_contact = true;
-		// Remove default add to cart form for variable products
-		remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
-	} elseif ( $product->is_type( 'simple' ) && ! $product->is_purchasable() ) {
-		$needs_contact = true;
-		// Remove default add to cart button for simple products without price
-		remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
-	}
-	
-	if ( $needs_contact ) {
-		// Add contact button
-		add_action( 'woocommerce_single_product_summary', 'anthome_display_single_contact_button', 30 );
-	}
+	// Add contact button for ALL products
+	add_action( 'woocommerce_single_product_summary', 'anthome_display_single_contact_button', 30 );
 }
 add_action( 'woocommerce_before_single_product', 'anthome_single_product_contact_button' );
 
 /**
  * Display contact button on single product page
+ * Shows Zalo button if available, otherwise phone button
  */
 function anthome_display_single_contact_button() {
-	$phone = anthome_get_option( 'phone', '123123123' );
-	$phone_clean = preg_replace( '/[^0-9+]/', '', $phone );
+	$contact_url = anthome_get_contact_link( 'url' );
+	$phone_display = anthome_get_contact_link( 'phone_display' );
+	$zalo_url = anthome_get_contact_link( 'zalo' );
+	
+	if ( ! $contact_url ) {
+		return;
+	}
+	
+	// Determine button style and text
+	if ( $zalo_url ) {
+		$button_class = 'btn btn-primary btn-lg w-100 contact-button';
+		$button_text = 'Liên hệ Zalo';
+		$icon = '<i class="bi bi-chat-dots me-2"></i>';
+		$target = '_blank';
+	} else {
+		$button_class = 'btn btn-success btn-lg w-100 contact-button';
+		$button_text = 'Liên hệ: ' . $phone_display;
+		$icon = '<i class="bi bi-telephone-fill me-2"></i>';
+		$target = '_self';
+	}
 	?>
 	<div class="contact-button-wrapper mt-3">
-		<a href="tel:<?php echo esc_attr( $phone_clean ); ?>" class="button btn btn-success btn-lg w-100 contact-button">
-			<i class="bi bi-telephone-fill me-2"></i>
-			<?php echo esc_html__( 'Liên hệ: ', 'anthome' ) . esc_html( $phone ); ?>
+		<a href="<?php echo esc_url( $contact_url ); ?>" 
+		   class="<?php echo esc_attr( $button_class ); ?>" 
+		   target="<?php echo esc_attr( $target ); ?>"
+		   rel="nofollow">
+			<?php echo $icon; ?>
+			<?php echo esc_html( $button_text ); ?>
 		</a>
 	</div>
 	<?php
 }
+
+/**
+ * Hide cart and checkout pages - redirect to shop
+ */
+add_action( 'template_redirect', 'anthome_redirect_cart_checkout' );
+function anthome_redirect_cart_checkout() {
+	if ( is_cart() || is_checkout() ) {
+		wp_safe_redirect( wc_get_page_permalink( 'shop' ) );
+		exit;
+	}
+}
+
+/**
+ * Disable add to cart functionality completely for all products
+ */
+add_filter( 'woocommerce_is_purchasable', '__return_false', 999 );
+
+/**
+ * Remove add to cart from all product types in loop
+ */
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+
+/**
+ * Hide quantity selector on single product page
+ */
+add_filter( 'woocommerce_product_single_add_to_cart_text', '__return_empty_string' );
+add_filter( 'woocommerce_product_add_to_cart_text', '__return_empty_string' );

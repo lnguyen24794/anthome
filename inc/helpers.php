@@ -22,6 +22,54 @@ if ( ! function_exists( 'anthome_log' ) ) {
 }
 
 /**
+ * Get Contact Link (Zalo or Phone)
+ * Returns Zalo link if available, otherwise phone link
+ */
+if ( ! function_exists( 'anthome_get_contact_link' ) ) {
+	function anthome_get_contact_link( $return_type = 'url' ) {
+		$zalo_url = anthome_get_option( 'floating_zalo_url' );
+		$phone = anthome_get_option( 'floating_phone' );
+		
+		// If no phone from floating contact, use main phone
+		if ( ! $phone ) {
+			$phone = anthome_get_option( 'phone' );
+		}
+		
+		// Format Zalo URL
+		$zalo_link = '';
+		if ( $zalo_url ) {
+			if ( strpos( $zalo_url, 'http' ) === 0 ) {
+				$zalo_link = $zalo_url;
+			} else {
+				// If it's just a phone number, format as zalo.me link
+				$zalo_link = 'https://zalo.me/' . preg_replace( '/[^0-9]/', '', $zalo_url );
+			}
+		}
+		
+		// Format phone for tel: link
+		$phone_link = '';
+		if ( $phone ) {
+			$phone_link = 'tel:' . preg_replace( '/[^0-9+]/', '', $phone );
+		}
+		
+		// Return based on type
+		if ( $return_type === 'url' ) {
+			// Return URL (prefer Zalo, fallback to phone)
+			return $zalo_link ? $zalo_link : $phone_link;
+		} elseif ( $return_type === 'zalo' ) {
+			return $zalo_link;
+		} elseif ( $return_type === 'phone' ) {
+			return $phone_link;
+		} elseif ( $return_type === 'phone_display' ) {
+			// Return formatted phone for display
+			return $phone ? $phone : '';
+		}
+		
+		return '';
+	}
+}
+
+/**
  * Render Floating Contact Buttons
  */
 if ( ! function_exists( 'anthome_render_floating_contact' ) ) {

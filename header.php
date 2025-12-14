@@ -130,14 +130,16 @@
                        </div>
                     </div>
 
-                     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-                     <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="position-relative btn btn-light border-0 ms-2 text-primary">
+                     <?php 
+                     // Cart icon removed - website now uses contact-only mode
+                     // if ( class_exists( 'WooCommerce' ) ) : ?>
+                     <!-- <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="position-relative btn btn-light border-0 ms-2 text-primary">
                         <i class="bi bi-bag-fill fs-4"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             <?php echo WC()->cart->get_cart_contents_count(); ?>
                         </span>
-                     </a>
-                     <?php endif; ?>
+                     </a> -->
+                     <?php // endif; ?>
                 </div>
             </div>
             
