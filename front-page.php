@@ -46,34 +46,6 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="container mb-5">
-        <div class="bg-white shadow-sm border p-4">
-            <div class="row g-4">
-                <div class="col-md-3 col-6 text-center border-end">
-                    <i class="bi bi-truck fs-2 text-primary mb-2"></i>
-                    <h6 class="fw-bold mb-1">Giao hàng miễn phí</h6>
-                    <small class="text-muted">Đơn hàng > 500k</small>
-                </div>
-                <div class="col-md-3 col-6 text-center border-end">
-                    <i class="bi bi-arrow-repeat fs-2 text-primary mb-2"></i>
-                    <h6 class="fw-bold mb-1">Đổi trả 30 ngày</h6>
-                    <small class="text-muted">Nếu có lỗi NSX</small>
-                </div>
-                <div class="col-md-3 col-6 text-center border-end">
-                    <i class="bi bi-patch-check fs-2 text-primary mb-2"></i>
-                    <h6 class="fw-bold mb-1">Bảo hành dài hạn</h6>
-                    <small class="text-muted">Cam kết chất lượng</small>
-                </div>
-                <div class="col-md-3 col-6 text-center">
-                    <i class="bi bi-headset fs-2 text-primary mb-2"></i>
-                    <h6 class="fw-bold mb-1">Hỗ trợ 24/7</h6>
-                    <small class="text-muted">Hotline: <?php echo esc_html( anthome_get_option( 'phone', '0908.719.379' ) ); ?></small>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Featured Categories (Grid) -->
     <section class="container mb-5">
         <h3 class="fw-bold text-uppercase border-bottom pb-2 mb-4"><span class="text-primary border-bottom border-primary border-3 pb-2">Danh mục</span> nổi bật</h3>
