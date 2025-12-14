@@ -38,6 +38,7 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
                             'post_type' => 'product',
                             'posts_per_page' => -1, // Get all products to group into slides
                             'orderby' => 'rand', // Random order
+                            'limit' => 12, // Limit the number of products to 12
                         );
                         
                         // Add category filter if set
