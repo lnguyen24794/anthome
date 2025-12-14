@@ -63,6 +63,19 @@ if ( ! function_exists( 'anthome_get_contact_link' ) ) {
 		} elseif ( $return_type === 'phone_display' ) {
 			// Return formatted phone for display
 			return $phone ? $phone : '';
+		} elseif ( $return_type === 'zalo_display' ) {
+			// Return Zalo phone number for display
+			if ( $zalo_url ) {
+				if ( strpos( $zalo_url, 'http' ) === 0 ) {
+					// Extract from URL like https://zalo.me/0900000000
+					preg_match( '/zalo\.me\/([0-9]+)/', $zalo_url, $matches );
+					return isset( $matches[1] ) ? $matches[1] : '';
+				} else {
+					// Direct phone number
+					return preg_replace( '/[^0-9]/', '', $zalo_url );
+				}
+			}
+			return '';
 		}
 		
 		return '';

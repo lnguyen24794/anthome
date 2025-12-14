@@ -674,6 +674,21 @@ footer {
     .vertical-menu {
         display: none !important;
     }
+    
+    /* Mobile menu icon on left */
+    .main-header .col-lg-4.col-6.order-lg-3.order-1 {
+        justify-content: flex-start !important;
+    }
+    
+    .main-header .navbar-toggler[style*="margin-right: auto"] {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+    }
+    
+    /* Ensure logo is centered on mobile */
+    .main-header .col-lg-3.col-6.order-lg-1.order-2 {
+        text-align: center;
+    }
 }
 
 .menu-item > a {
@@ -3279,4 +3294,41 @@ html {
         width: 45px;
         height: 45px;
     }
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-slider {
+    margin-top: auto;
+}
+
+.mobile-menu-slider .carousel {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.mobile-menu-slider .carousel-item img {
+    border-radius: 0.5rem;
+}
+
+.mobile-menu-contact {
+    margin-top: auto;
+}
+
+.mobile-menu-contact .btn {
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+}
+
+.mobile-menu-contact .btn i {
+    font-size: 1.25rem;
+}
+
+/* Mobile menu content layout */
+.offcanvas-body.d-flex {
+    min-height: 0;
+}
+
+.mobile-nav-content.flex-grow-1 {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
 }

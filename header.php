@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <!-- Logo -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6 order-lg-1 order-2">
                      <a class="navbar-brand fw-bold fs-3 text-uppercase" href="<?php echo esc_url( home_url( '/' ) ); ?>">
                         <?php 
                         if ( has_custom_logo() ) { 
@@ -56,7 +56,7 @@
                 </div>
                 
                 <!-- Search Bar (Desktop) -->
-                <div class="col-lg-5 d-none d-lg-block">
+                <div class="col-lg-5 d-none d-lg-block order-lg-2">
                     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
                     <form action="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" 
                           method="get" 
@@ -104,9 +104,9 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="col-lg-4 col-6 d-flex justify-content-end align-items-center gap-3">
-                     <!-- Mobile Toggle -->
-                     <button class="navbar-toggler d-lg-none border-0 p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <div class="col-lg-4 col-6 d-flex justify-content-end align-items-center gap-3 order-lg-3 order-1">
+                     <!-- Mobile Toggle - Moved to left in mobile layout -->
+                     <button class="navbar-toggler d-lg-none border-0 p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" style="margin-right: auto;">
                         <i class="bi bi-list fs-1 text-primary"></i>
                      </button>
 
@@ -226,8 +226,8 @@
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body p-0">
-            <div class="mobile-nav-content">
+        <div class="offcanvas-body p-0 d-flex flex-column">
+            <div class="mobile-nav-content flex-grow-1">
                 
                 <?php
                 wp_nav_menu( array(
@@ -237,6 +237,76 @@
                     'fallback_cb'    => false,
                 ) );
                 ?>
+            </div>
+            
+            <!-- Mobile Menu Slider Images -->
+            <?php 
+            $mobile_slider_images = anthome_get_option( 'mobile_menu_slider_images' );
+            if ( ! empty( $mobile_slider_images ) ) :
+                $images = explode( ',', $mobile_slider_images );
+                if ( ! empty( $images ) ) :
+            ?>
+            <div class="mobile-menu-slider px-3 pb-3 border-top">
+                <div id="mobileMenuCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded">
+                        <?php foreach ( $images as $index => $image_id ) : 
+                            $image_url = wp_get_attachment_image_url( $image_id, 'medium' );
+                            if ( $image_url ) :
+                        ?>
+                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                            <img src="<?php echo esc_url( $image_url ); ?>" class="d-block w-100" alt="Menu Slide <?php echo $index + 1; ?>" style="height: 150px; object-fit: cover;">
+                        </div>
+                        <?php 
+                            endif;
+                        endforeach; ?>
+                    </div>
+                    <?php if ( count( $images ) > 1 ) : ?>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#mobileMenuCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#mobileMenuCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php 
+                endif;
+            endif; 
+            ?>
+            
+            <!-- Mobile Menu Contact Info -->
+            <div class="mobile-menu-contact px-3 pb-3 border-top bg-light">
+                <div class="d-flex flex-column gap-2">
+                    <?php 
+                    $zalo_url = anthome_get_contact_link( 'zalo' );
+                    $phone_link = anthome_get_contact_link( 'phone' );
+                    $phone_display = anthome_get_contact_link( 'phone_display' );
+                    ?>
+                    
+                    <?php if ( $zalo_url ) : 
+                        $zalo_display = anthome_get_contact_link( 'zalo_display' );
+                    ?>
+                    <a href="<?php echo esc_url( $zalo_url ); ?>" 
+                       class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" 
+                       target="_blank"
+                       rel="nofollow">
+                        <i class="bi bi-chat-dots fs-5"></i>
+                        <span>Zalo: <?php echo esc_html( $zalo_display ? $zalo_display : 'Liên hệ' ); ?></span>
+                    </a>
+                    <?php endif; ?>
+                    
+                    <?php if ( $phone_link && $phone_display ) : ?>
+                    <a href="<?php echo esc_attr( $phone_link ); ?>" 
+                       class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2"
+                       rel="nofollow">
+                        <i class="bi bi-telephone-fill fs-5"></i>
+                        <span>Gọi: <?php echo esc_html( $phone_display ); ?></span>
+                    </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

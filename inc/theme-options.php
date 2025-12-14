@@ -233,6 +233,24 @@ function anthome_register_theme_options() {
 		'anthome_floating_contact_section',
 		array( 'field' => 'floating_phone_enable' )
 	);
+
+	// Mobile Menu Section
+	add_settings_section(
+		'anthome_mobile_menu_section',
+		'Mobile Menu Settings',
+		'anthome_mobile_menu_section_callback',
+		'anthome-theme-options'
+	);
+
+	// Mobile Menu Slider Images
+	add_settings_field(
+		'mobile_menu_slider_images',
+		'Ảnh Slide trong Mobile Menu',
+		'anthome_image_gallery_field_callback',
+		'anthome-theme-options',
+		'anthome_mobile_menu_section',
+		array( 'field' => 'mobile_menu_slider_images' )
+	);
 }
 add_action( 'admin_init', 'anthome_register_theme_options' );
 
@@ -253,6 +271,10 @@ function anthome_contact_section_callback() {
 
 function anthome_floating_contact_section_callback() {
 	echo '<p>Cài đặt các nút liên hệ nổi (Floating Contact) hiển thị ở góc phải màn hình.</p>';
+}
+
+function anthome_mobile_menu_section_callback() {
+	echo '<p>Cài đặt ảnh slide và thông tin liên hệ hiển thị trong mobile menu.</p>';
 }
 
 /**
@@ -298,6 +320,107 @@ function anthome_checkbox_field_callback( $args ) {
 	<?php
 }
 
+function anthome_image_gallery_field_callback( $args ) {
+	$options = get_option( 'anthome_options' );
+	$field = $args['field'];
+	$value = isset( $options[ $field ] ) ? $options[ $field ] : '';
+	$image_ids = ! empty( $value ) ? explode( ',', $value ) : array();
+	?>
+	<div class="anthome-image-gallery-field">
+		<input type="hidden" 
+			   name="anthome_options[<?php echo esc_attr( $field ); ?>]" 
+			   id="<?php echo esc_attr( $field ); ?>" 
+			   value="<?php echo esc_attr( $value ); ?>">
+		
+		<div class="image-gallery-preview mb-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+			<?php if ( ! empty( $image_ids ) ) : 
+				foreach ( $image_ids as $image_id ) :
+					$image_url = wp_get_attachment_image_url( $image_id, 'thumbnail' );
+					if ( $image_url ) :
+			?>
+			<div class="gallery-item" style="position: relative; width: 100px; height: 100px;">
+				<img src="<?php echo esc_url( $image_url ); ?>" 
+					 style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px; border: 2px solid #ddd;">
+				<button type="button" 
+						class="remove-image" 
+						data-image-id="<?php echo esc_attr( $image_id ); ?>"
+						style="position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px;">
+					×
+				</button>
+			</div>
+			<?php 
+					endif;
+				endforeach;
+			endif; 
+			?>
+		</div>
+		
+		<button type="button" 
+				class="button button-secondary add-images-button">
+			<?php echo empty( $image_ids ) ? 'Thêm ảnh' : 'Thêm ảnh khác'; ?>
+		</button>
+		<p class="description">Chọn một hoặc nhiều ảnh để hiển thị trong mobile menu. Ảnh sẽ được hiển thị dạng carousel/slider.</p>
+	</div>
+	
+	<script>
+	jQuery(document).ready(function($) {
+		var fieldId = '<?php echo esc_js( $field ); ?>';
+		var fieldWrapper = $('#' + fieldId).closest('.anthome-image-gallery-field');
+		var hiddenInput = fieldWrapper.find('input[type="hidden"]');
+		var preview = fieldWrapper.find('.image-gallery-preview');
+		
+		// Add images button
+		fieldWrapper.find('.add-images-button').on('click', function(e) {
+			e.preventDefault();
+			
+			var imageUploader = wp.media({
+				title: 'Chọn ảnh cho Mobile Menu',
+				button: {
+					text: 'Chọn ảnh'
+				},
+				multiple: true
+			});
+			
+			imageUploader.on('select', function() {
+				var attachments = imageUploader.state().get('selection').toJSON();
+				var currentIds = hiddenInput.val() ? hiddenInput.val().split(',') : [];
+				
+				attachments.forEach(function(attachment) {
+					if (currentIds.indexOf(String(attachment.id)) === -1) {
+						currentIds.push(String(attachment.id));
+						
+						var thumbnailUrl = attachment.sizes && attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+						var item = $('<div class="gallery-item" style="position: relative; width: 100px; height: 100px;">' +
+							'<img src="' + thumbnailUrl + '" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px; border: 2px solid #ddd;">' +
+							'<button type="button" class="remove-image" data-image-id="' + attachment.id + '" style="position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px;">×</button>' +
+							'</div>');
+						
+						preview.append(item);
+					}
+				});
+				
+				hiddenInput.val(currentIds.join(','));
+			});
+			
+			imageUploader.open();
+		});
+		
+		// Remove image
+		fieldWrapper.on('click', '.remove-image', function() {
+			var imageId = $(this).data('image-id');
+			var currentIds = hiddenInput.val() ? hiddenInput.val().split(',') : [];
+			currentIds = currentIds.filter(function(id) {
+				return id !== String(imageId);
+			});
+			
+			hiddenInput.val(currentIds.join(','));
+			$(this).closest('.gallery-item').remove();
+		});
+	});
+	</script>
+	<?php
+}
+
 /**
  * Sanitize Options
  */
@@ -308,12 +431,19 @@ function anthome_sanitize_options( $input ) {
 	$text_fields = array( 
 		'company_name', 'address', 'phone', 'email', 'working_hours',
 		'facebook_url', 'instagram_url', 'youtube_url', 'contact_email',
-		'floating_messenger_url', 'floating_zalo_url', 'floating_phone'
+		'floating_messenger_url', 'floating_zalo_url', 'floating_phone',
+		'mobile_menu_slider_images'
 	);
 
 	foreach ( $text_fields as $field ) {
 		if ( isset( $input[ $field ] ) ) {
-			$sanitized[ $field ] = sanitize_text_field( $input[ $field ] );
+			if ( $field === 'mobile_menu_slider_images' ) {
+				// Sanitize comma-separated image IDs
+				$ids = array_map( 'absint', explode( ',', $input[ $field ] ) );
+				$sanitized[ $field ] = implode( ',', array_filter( $ids ) );
+			} else {
+				$sanitized[ $field ] = sanitize_text_field( $input[ $field ] );
+			}
 		}
 	}
 
@@ -334,6 +464,19 @@ function anthome_sanitize_options( $input ) {
 
 	return $sanitized;
 }
+
+/**
+ * Enqueue media uploader scripts for theme options page
+ */
+function anthome_enqueue_theme_options_scripts( $hook ) {
+	if ( 'toplevel_page_anthome-theme-options' !== $hook ) {
+		return;
+	}
+	
+	wp_enqueue_media();
+	wp_enqueue_script( 'jquery' );
+}
+add_action( 'admin_enqueue_scripts', 'anthome_enqueue_theme_options_scripts' );
 
 /**
  * Theme Options Page HTML
