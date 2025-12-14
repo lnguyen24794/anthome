@@ -1494,7 +1494,7 @@ function anthome_display_single_contact_button() {
 	}
 	?>
 	<div class="contact-button-wrapper mt-3">
-		<div class="d-flex flex-column gap-2">
+		<div class="d-flex gap-2">
 			<?php if ( $zalo_url ) : ?>
 				<a href="<?php echo esc_url( $zalo_url ); ?>" 
 				   class="btn btn-primary btn-lg w-100 contact-button" 
