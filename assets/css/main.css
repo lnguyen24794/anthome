@@ -3196,7 +3196,7 @@ html {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: white !important;
     font-size: 24px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
@@ -3206,7 +3206,7 @@ html {
 .contact-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-    color: white;
+    color: white !important;
 }
 
 .btn-messenger {
