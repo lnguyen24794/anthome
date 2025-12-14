@@ -943,40 +943,6 @@ function anthome_shipping_info_tab_content() {
 	<?php
 }
 
-// Add custom section before related products
-add_action( 'woocommerce_after_single_product_summary', 'anthome_product_guarantee_section', 18 );
-function anthome_product_guarantee_section() {
-	?>
-	<div class="product-guarantee-section py-5 mb-5 bg-light rounded">
-		<div class="container">
-			<h3 class="text-center mb-4">Cam kết của chúng tôi</h3>
-			<div class="row g-4">
-				<div class="col-md-3 col-6 text-center">
-					<i class="bi bi-shield-check display-4 text-primary mb-3"></i>
-					<h5 class="h6">Hàng chính hãng</h5>
-					<p class="small text-muted mb-0">100% hàng nhập khẩu</p>
-				</div>
-				<div class="col-md-3 col-6 text-center">
-					<i class="bi bi-truck display-4 text-success mb-3"></i>
-					<h5 class="h6">Giao hàng nhanh</h5>
-					<p class="small text-muted mb-0">1-2 ngày nội thành</p>
-				</div>
-				<div class="col-md-3 col-6 text-center">
-					<i class="bi bi-arrow-return-left display-4 text-info mb-3"></i>
-					<h5 class="h6">Đổi trả dễ dàng</h5>
-					<p class="small text-muted mb-0">Trong vòng 7 ngày</p>
-				</div>
-				<div class="col-md-3 col-6 text-center">
-					<i class="bi bi-headset display-4 text-warning mb-3"></i>
-					<h5 class="h6">Hỗ trợ 24/7</h5>
-					<p class="small text-muted mb-0">Tư vấn nhiệt tình</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<?php
-}
-
 /**
  * After everything (woocommerce_after_single_product)
  * 
