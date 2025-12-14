@@ -3176,3 +3176,84 @@ html {
 .shop_table tfoot td {
     text-align: right !important;
 }
+
+/* Floating Contact Buttons */
+.floating-contact {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.contact-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.btn-messenger {
+    background-color: #0084ff;
+}
+
+.btn-zalo {
+    background-color: #0068ff;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.btn-zalo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.btn-phone {
+    background-color: #dd3333;
+}
+
+.animate-ring {
+    animation: ring-alo 1.5s infinite ease-in-out;
+}
+
+@keyframes ring-alo {
+    0% { transform: rotate(0) scale(1) skew(1deg); }
+    10% { transform: rotate(-25deg) scale(1) skew(1deg); }
+    20% { transform: rotate(25deg) scale(1) skew(1deg); }
+    30% { transform: rotate(-25deg) scale(1) skew(1deg); }
+    40% { transform: rotate(25deg) scale(1) skew(1deg); }
+    50% { transform: rotate(0) scale(1) skew(1deg); }
+    100% { transform: rotate(0) scale(1) skew(1deg); }
+}
+
+/* Responsive: Hide on very small screens */
+@media (max-width: 480px) {
+    .floating-contact {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .contact-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+}

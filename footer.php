@@ -78,6 +78,10 @@
     </div>
 </footer>
 
-<?php wp_footer(); ?>
+<?php 
+// Render Floating Contact
+anthome_render_floating_contact();
+wp_footer(); 
+?>
 </body>
 </html>

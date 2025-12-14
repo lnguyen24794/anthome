@@ -155,6 +155,84 @@ function anthome_register_theme_options() {
 		'anthome_contact_section',
 		array( 'field' => 'google_maps_embed' )
 	);
+
+	// Floating Contact Section
+	add_settings_section(
+		'anthome_floating_contact_section',
+		'Floating Contact Buttons',
+		'anthome_floating_contact_section_callback',
+		'anthome-theme-options'
+	);
+
+	// Enable Floating Contact
+	add_settings_field(
+		'floating_contact_enable',
+		'Bật Floating Contact',
+		'anthome_checkbox_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_contact_enable' )
+	);
+
+	// Messenger URL
+	add_settings_field(
+		'floating_messenger_url',
+		'Messenger URL',
+		'anthome_text_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_messenger_url', 'placeholder' => 'https://m.me/yourpage' )
+	);
+
+	// Enable Messenger
+	add_settings_field(
+		'floating_messenger_enable',
+		'Hiển thị nút Messenger',
+		'anthome_checkbox_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_messenger_enable' )
+	);
+
+	// Zalo URL/Phone
+	add_settings_field(
+		'floating_zalo_url',
+		'Zalo URL/Số điện thoại',
+		'anthome_text_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_zalo_url', 'placeholder' => 'https://zalo.me/0900000000 hoặc 0900000000' )
+	);
+
+	// Enable Zalo
+	add_settings_field(
+		'floating_zalo_enable',
+		'Hiển thị nút Zalo',
+		'anthome_checkbox_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_zalo_enable' )
+	);
+
+	// Phone Number
+	add_settings_field(
+		'floating_phone',
+		'Số điện thoại',
+		'anthome_text_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_phone', 'placeholder' => '0909999999' )
+	);
+
+	// Enable Phone
+	add_settings_field(
+		'floating_phone_enable',
+		'Hiển thị nút Gọi điện',
+		'anthome_checkbox_field_callback',
+		'anthome-theme-options',
+		'anthome_floating_contact_section',
+		array( 'field' => 'floating_phone_enable' )
+	);
 }
 add_action( 'admin_init', 'anthome_register_theme_options' );
 
@@ -173,6 +251,10 @@ function anthome_contact_section_callback() {
 	echo '<p>Cài đặt thông tin cho trang liên hệ.</p>';
 }
 
+function anthome_floating_contact_section_callback() {
+	echo '<p>Cài đặt các nút liên hệ nổi (Floating Contact) hiển thị ở góc phải màn hình.</p>';
+}
+
 /**
  * Field Callbacks
  */
@@ -180,11 +262,13 @@ function anthome_text_field_callback( $args ) {
 	$options = get_option( 'anthome_options' );
 	$field = $args['field'];
 	$value = isset( $options[ $field ] ) ? $options[ $field ] : '';
+	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
 	?>
 	<input type="text" 
 		   name="anthome_options[<?php echo esc_attr( $field ); ?>]" 
 		   value="<?php echo esc_attr( $value ); ?>" 
-		   class="regular-text">
+		   class="regular-text"
+		   placeholder="<?php echo esc_attr( $placeholder ); ?>">
 	<?php
 }
 
@@ -192,10 +276,25 @@ function anthome_textarea_field_callback( $args ) {
 	$options = get_option( 'anthome_options' );
 	$field = $args['field'];
 	$value = isset( $options[ $field ] ) ? $options[ $field ] : '';
+	$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : '';
 	?>
 	<textarea name="anthome_options[<?php echo esc_attr( $field ); ?>]" 
 			  rows="5" 
-			  class="large-text"><?php echo esc_textarea( $value ); ?></textarea>
+			  class="large-text"
+			  placeholder="<?php echo esc_attr( $placeholder ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
+	<?php
+}
+
+function anthome_checkbox_field_callback( $args ) {
+	$options = get_option( 'anthome_options' );
+	$field = $args['field'];
+	$value = isset( $options[ $field ] ) ? $options[ $field ] : '';
+	?>
+	<input type="checkbox" 
+		   name="anthome_options[<?php echo esc_attr( $field ); ?>]" 
+		   value="1" 
+		   <?php checked( $value, 1 ); ?>>
+	<label for="anthome_options[<?php echo esc_attr( $field ); ?>]">Bật</label>
 	<?php
 }
 
@@ -208,13 +307,24 @@ function anthome_sanitize_options( $input ) {
 	// Text fields
 	$text_fields = array( 
 		'company_name', 'address', 'phone', 'email', 'working_hours',
-		'facebook_url', 'instagram_url', 'youtube_url', 'contact_email'
+		'facebook_url', 'instagram_url', 'youtube_url', 'contact_email',
+		'floating_messenger_url', 'floating_zalo_url', 'floating_phone'
 	);
 
 	foreach ( $text_fields as $field ) {
 		if ( isset( $input[ $field ] ) ) {
 			$sanitized[ $field ] = sanitize_text_field( $input[ $field ] );
 		}
+	}
+
+	// Checkbox fields
+	$checkbox_fields = array(
+		'floating_contact_enable', 'floating_messenger_enable', 
+		'floating_zalo_enable', 'floating_phone_enable'
+	);
+
+	foreach ( $checkbox_fields as $field ) {
+		$sanitized[ $field ] = isset( $input[ $field ] ) ? 1 : 0;
 	}
 
 	// Textarea fields

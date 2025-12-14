@@ -19,6 +19,11 @@ function anthome_scripts() {
 	// Bootstrap Icons
 	wp_enqueue_style( 'anthome-bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css', array(), '1.11.0' );
 
+	// Font Awesome (for Floating Contact)
+	if ( anthome_get_option( 'floating_contact_enable' ) ) {
+		wp_enqueue_style( 'anthome-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0' );
+	}
+
 	// AOS CSS
 	wp_enqueue_style( 'anthome-aos-css', 'https://unpkg.com/aos@2.3.1/dist/aos.css', array(), '2.3.1' );
 
