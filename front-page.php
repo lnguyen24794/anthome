@@ -105,7 +105,7 @@ $hero_bg = 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=fo
                                                     ?>
                                                     <div class="product-name-overlay position-absolute bottom-0 start-0 end-0 p-3">
                                                         <div class="product-name-overlay-bg"></div>
-                                                        <h6 class="product-name-overlay-text text-white fw-bold mb-0 position-relative" style="font-size: 0.95rem; line-height: 1.3;">
+                                                        <h6 class="product-name-overlay-text text-white text-center fw-bold mb-0 position-relative" style="font-size: 0.95rem; line-height: 1.3;">
                                                             <?php echo esc_html( get_the_title() ); ?>
                                                         </h6>
                                                     </div>
