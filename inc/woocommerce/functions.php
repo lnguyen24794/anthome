@@ -1447,40 +1447,46 @@ function anthome_thankyou_page_styles() {
  */
 
 /**
- * Replace ALL add to cart buttons with contact link (Zalo or Phone)
+ * Replace ALL add to cart buttons with contact buttons (Zalo and Phone)
  * Apply to ALL products in loop
  */
 function anthome_replace_all_add_to_cart_with_contact( $link, $product ) {
-	// Get contact link (prefer Zalo, fallback to phone)
-	$contact_url = anthome_get_contact_link( 'url' );
-	$phone_display = anthome_get_contact_link( 'phone_display' );
+	// Get contact links
 	$zalo_url = anthome_get_contact_link( 'zalo' );
+	$phone_link = anthome_get_contact_link( 'phone' );
+	$phone_display = anthome_get_contact_link( 'phone_display' );
 	
-	if ( ! $contact_url ) {
+	// If no contact info, hide button
+	if ( ! $zalo_url && ! $phone_link ) {
 		return ''; // Hide button if no contact info
 	}
 	
-	// Determine button text and icon
+	// Build buttons HTML
+	$buttons = '<div class="d-flex flex-column gap-2">';
+	
+	// Zalo button
 	if ( $zalo_url ) {
-		$button_text = 'Liên hệ Zalo';
-		$button_class = 'button product_type_contact btn-zalo-contact';
-		$icon = '<i class="bi bi-chat-dots me-2"></i>';
-	} else {
-		$button_text = 'Liên hệ: ' . $phone_display;
-		$button_class = 'button product_type_contact btn-phone-contact';
-		$icon = '<i class="bi bi-telephone-fill me-2"></i>';
+		$buttons .= sprintf(
+			'<a href="%s" class="button product_type_contact btn-zalo-contact" rel="nofollow" target="_blank">%s%s</a>',
+			esc_url( $zalo_url ),
+			'<i class="bi bi-chat-dots me-2"></i>',
+			esc_html( 'Liên hệ Zalo' )
+		);
 	}
 	
-	$link = sprintf(
-		'<a href="%s" class="%s" rel="nofollow" target="%s">%s%s</a>',
-		esc_url( $contact_url ),
-		esc_attr( $button_class ),
-		$zalo_url ? '_blank' : '_self',
-		$icon,
-		esc_html( $button_text )
-	);
+	// Phone button
+	if ( $phone_link && $phone_display ) {
+		$buttons .= sprintf(
+			'<a href="%s" class="button product_type_contact btn-phone-contact" rel="nofollow">%s%s</a>',
+			esc_attr( $phone_link ),
+			'<i class="bi bi-telephone-fill me-2"></i>',
+			esc_html( 'Gọi: ' . $phone_display )
+		);
+	}
 	
-	return $link;
+	$buttons .= '</div>';
+	
+	return $buttons;
 }
 add_filter( 'woocommerce_loop_add_to_cart_link', 'anthome_replace_all_add_to_cart_with_contact', 10, 2 );
 
@@ -1508,39 +1514,40 @@ function anthome_single_product_contact_button() {
 add_action( 'woocommerce_before_single_product', 'anthome_single_product_contact_button' );
 
 /**
- * Display contact button on single product page
- * Shows Zalo button if available, otherwise phone button
+ * Display contact buttons on single product page
+ * Shows both Zalo and Phone buttons if available
  */
 function anthome_display_single_contact_button() {
-	$contact_url = anthome_get_contact_link( 'url' );
-	$phone_display = anthome_get_contact_link( 'phone_display' );
 	$zalo_url = anthome_get_contact_link( 'zalo' );
+	$phone_link = anthome_get_contact_link( 'phone' );
+	$phone_display = anthome_get_contact_link( 'phone_display' );
 	
-	if ( ! $contact_url ) {
+	// If no contact info, don't display
+	if ( ! $zalo_url && ! $phone_link ) {
 		return;
-	}
-	
-	// Determine button style and text
-	if ( $zalo_url ) {
-		$button_class = 'btn btn-primary btn-lg w-100 contact-button';
-		$button_text = 'Liên hệ Zalo';
-		$icon = '<i class="bi bi-chat-dots me-2"></i>';
-		$target = '_blank';
-	} else {
-		$button_class = 'btn btn-success btn-lg w-100 contact-button';
-		$button_text = 'Liên hệ: ' . $phone_display;
-		$icon = '<i class="bi bi-telephone-fill me-2"></i>';
-		$target = '_self';
 	}
 	?>
 	<div class="contact-button-wrapper mt-3">
-		<a href="<?php echo esc_url( $contact_url ); ?>" 
-		   class="<?php echo esc_attr( $button_class ); ?>" 
-		   target="<?php echo esc_attr( $target ); ?>"
-		   rel="nofollow">
-			<?php echo $icon; ?>
-			<?php echo esc_html( $button_text ); ?>
-		</a>
+		<div class="d-flex flex-column gap-2">
+			<?php if ( $zalo_url ) : ?>
+				<a href="<?php echo esc_url( $zalo_url ); ?>" 
+				   class="btn btn-primary btn-lg w-100 contact-button" 
+				   target="_blank"
+				   rel="nofollow">
+					<i class="bi bi-chat-dots me-2"></i>
+					<?php echo esc_html( 'Liên hệ Zalo' ); ?>
+				</a>
+			<?php endif; ?>
+			
+			<?php if ( $phone_link && $phone_display ) : ?>
+				<a href="<?php echo esc_attr( $phone_link ); ?>" 
+				   class="btn btn-success btn-lg w-100 contact-button" 
+				   rel="nofollow">
+					<i class="bi bi-telephone-fill me-2"></i>
+					<?php echo esc_html( 'Gọi: ' . $phone_display ); ?>
+				</a>
+			<?php endif; ?>
+		</div>
 	</div>
 	<?php
 }
@@ -1562,9 +1569,12 @@ function anthome_redirect_cart_checkout() {
 add_filter( 'woocommerce_is_purchasable', '__return_false', 999 );
 
 /**
- * Remove add to cart from all product types in loop
+ * Keep add to cart action in loop but replace the link via filter
+ * The filter woocommerce_loop_add_to_cart_link will replace the button content
+ * We need to keep the action so the button wrapper is displayed
  */
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+// Don't remove the action - let the filter handle the replacement
+// The filter will change the button content to contact buttons
 
 /**
  * Hide quantity selector on single product page
