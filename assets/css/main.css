@@ -1105,6 +1105,11 @@ a {
     .breadcrumb-item a {
         font-weight: 500;
     }
+    
+    .attachment-woocommerce_thumbnail {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
 }
 
 /* Breadcrumb Text Truncate for Long Names */
