@@ -251,6 +251,24 @@ function anthome_register_theme_options() {
 		'anthome_mobile_menu_section',
 		array( 'field' => 'mobile_menu_slider_images' )
 	);
+
+	// Homepage Product Slider Section
+	add_settings_section(
+		'anthome_homepage_slider_section',
+		'Homepage Product Slider',
+		'anthome_homepage_slider_section_callback',
+		'anthome-theme-options'
+	);
+
+	// Product Category for Homepage Slider
+	add_settings_field(
+		'homepage_slider_category',
+		'Danh mục sản phẩm hiển thị',
+		'anthome_product_category_field_callback',
+		'anthome-theme-options',
+		'anthome_homepage_slider_section',
+		array( 'field' => 'homepage_slider_category' )
+	);
 }
 add_action( 'admin_init', 'anthome_register_theme_options' );
 
@@ -275,6 +293,10 @@ function anthome_floating_contact_section_callback() {
 
 function anthome_mobile_menu_section_callback() {
 	echo '<p>Cài đặt ảnh slide và thông tin liên hệ hiển thị trong mobile menu.</p>';
+}
+
+function anthome_homepage_slider_section_callback() {
+	echo '<p>Cài đặt danh mục sản phẩm hiển thị trong slider trên trang chủ. Nếu không chọn danh mục, hệ thống sẽ hiển thị tất cả sản phẩm ngẫu nhiên.</p>';
 }
 
 /**
@@ -421,6 +443,37 @@ function anthome_image_gallery_field_callback( $args ) {
 	<?php
 }
 
+function anthome_product_category_field_callback( $args ) {
+	$options = get_option( 'anthome_options' );
+	$field = $args['field'];
+	$value = isset( $options[ $field ] ) ? $options[ $field ] : '';
+	
+	if ( ! anthome_is_woocommerce_activated() ) {
+		echo '<p class="description">WooCommerce chưa được kích hoạt.</p>';
+		return;
+	}
+	
+	$categories = get_terms( array(
+		'taxonomy' => 'product_cat',
+		'hide_empty' => false,
+		'parent' => 0,
+	) );
+	?>
+	<select name="anthome_options[<?php echo esc_attr( $field ); ?>]" class="regular-text">
+		<option value="">-- Chọn danh mục (hoặc để trống để hiển thị tất cả) --</option>
+		<?php
+		if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+			foreach ( $categories as $category ) {
+				$selected = selected( $value, $category->term_id, false );
+				echo '<option value="' . esc_attr( $category->term_id ) . '" ' . $selected . '>' . esc_html( $category->name ) . ' (' . $category->count . ')</option>';
+			}
+		}
+		?>
+	</select>
+	<p class="description">Chọn danh mục sản phẩm để hiển thị trong slider trang chủ. Nếu không chọn, hệ thống sẽ hiển thị tất cả sản phẩm ngẫu nhiên.</p>
+	<?php
+}
+
 /**
  * Sanitize Options
  */
@@ -432,7 +485,7 @@ function anthome_sanitize_options( $input ) {
 		'company_name', 'address', 'phone', 'email', 'working_hours',
 		'facebook_url', 'instagram_url', 'youtube_url', 'contact_email',
 		'floating_messenger_url', 'floating_zalo_url', 'floating_phone',
-		'mobile_menu_slider_images'
+		'mobile_menu_slider_images', 'homepage_slider_category'
 	);
 
 	foreach ( $text_fields as $field ) {
@@ -441,6 +494,9 @@ function anthome_sanitize_options( $input ) {
 				// Sanitize comma-separated image IDs
 				$ids = array_map( 'absint', explode( ',', $input[ $field ] ) );
 				$sanitized[ $field ] = implode( ',', array_filter( $ids ) );
+			} elseif ( $field === 'homepage_slider_category' ) {
+				// Sanitize category ID
+				$sanitized[ $field ] = ! empty( $input[ $field ] ) ? absint( $input[ $field ] ) : '';
 			} else {
 				$sanitized[ $field ] = sanitize_text_field( $input[ $field ] );
 			}

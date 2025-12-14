@@ -812,7 +812,85 @@ footer {
 
 /* Ensure slider is lower */
 .hero-slider {
-    z-index: 1; 
+    z-index: 1;
+}
+
+/* Homepage Product Slider */
+#homepageProductSlider {
+    background: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+#homepageProductSlider .carousel-inner {
+    padding: 1rem;
+}
+
+#homepageProductSlider .carousel-item {
+    min-height: 100%;
+}
+
+#homepageProductSlider .product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#homepageProductSlider .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+#homepageProductSlider .carousel-control-prev,
+#homepageProductSlider .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+#homepageProductSlider .carousel-control-prev:hover,
+#homepageProductSlider .carousel-control-next:hover {
+    opacity: 1;
+}
+
+#homepageProductSlider .carousel-control-prev {
+    left: 10px;
+}
+
+#homepageProductSlider .carousel-control-next {
+    right: 10px;
+}
+
+#homepageProductSlider .carousel-indicators {
+    margin-bottom: 0.5rem;
+}
+
+#homepageProductSlider .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+#homepageProductSlider .carousel-indicators button.active {
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+@media (max-width: 768px) {
+    #homepageProductSlider {
+        height: auto !important;
+    }
+    
+    #homepageProductSlider .carousel-item .row {
+        height: auto !important;
+    }
+    
+    #homepageProductSlider .carousel-item .col-4 {
+        margin-bottom: 1rem;
+    }
 }
 
 .bg-primary { 
